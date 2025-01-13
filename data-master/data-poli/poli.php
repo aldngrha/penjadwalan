@@ -27,7 +27,10 @@ if (!isset($_SESSION["jabatan"])) {
 <body class="sb-nav-fixed">
     <?php include "../../includes/navbar.php"; ?>
     <div id="layoutSidenav">
-    <?php include "../../includes/sidebar.php"; ?>
+        <div id="layoutSidenav_nav">
+        <?php include "../../includes/sidebar.php"?>
+        </div>
+
         <div id="layoutSidenav_content" class="bg-white text-dark">
             <main>
                 <div class="container-fluid">

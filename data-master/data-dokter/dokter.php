@@ -25,7 +25,7 @@ if (!isset($_SESSION["jabatan"])) {
 </head>
 
 <body class="sb-nav-fixed">
-<?php include '../../includes/navbar.php'; ?>
+    <?php include '../../includes/navbar.php'?>
 
     <nav class="sb-topnav navbar navbar-expand navbar-dark bg-primary">
         <a class="navbar-brand font-weight-bold text-center" href="../../index.php">Poli Klinik</a>
@@ -114,7 +114,8 @@ if (!isset($_SESSION["jabatan"])) {
                     </div>
                 </div>
             </main>
-            <?php include '../../includes/footer.php'; ?>
+<?php include '../../includes/footer.php';?>
+
         </div>
     </div>
     <script src="../../assets/js/jquery-3.5.1.slim.min.js"></script>
