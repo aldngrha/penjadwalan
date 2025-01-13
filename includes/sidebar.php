@@ -21,7 +21,7 @@
                                     <a class="nav-link" href="/data-master/data-poli/poli.php">Data Role Pengguna</a>
                                 </nav>
                             </div>
-                            <a class="nav-link" href="data-pendaftaran/pendaftaran.php">
+                            <a class="nav-link" href="/data-pendaftaran/pendaftaran.php">
                                 <div class="sb-nav-link-icon"><i class="fas fa-clipboard-list"></i></div>
                                 Data Pendaftaran
                             </a>

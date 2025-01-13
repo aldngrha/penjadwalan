@@ -25,6 +25,8 @@ if (!isset($_SESSION["jabatan"])) {
 </head>
 
 <body class="sb-nav-fixed">
+<?php include '../../includes/navbar.php'; ?>
+
     <nav class="sb-topnav navbar navbar-expand navbar-dark bg-primary">
         <a class="navbar-brand font-weight-bold text-center" href="../../index.php">Poli Klinik</a>
         <button class="btn btn-link btn-sm order-1 order-lg-0" id="sidebarToggle" href="#"><i class="fas fa-bars"></i></button>
@@ -47,9 +49,8 @@ if (!isset($_SESSION["jabatan"])) {
             </li>
         </ul>
     </nav>
-    <p>hello</p>
     <div id="layoutSidenav">
-        <?php include "../../includes/sidebar.php"; ?>
+        <?php include '../../includes/sidebar.php';?>
         <div id="layoutSidenav_content" class="bg-white text-dark">
             <main>
                 <div class="container-fluid">
@@ -113,13 +114,7 @@ if (!isset($_SESSION["jabatan"])) {
                     </div>
                 </div>
             </main>
-            <footer class="py-4 bg-dark mt-auto">
-                <div class="container-fluid">
-                    <div class="d-flex align-items-center justify-content-between small">
-                        <div class="text-muted font-weight-bold">Copyright &copy; Poli Klinik 2021</div>
-                    </div>
-                </div>
-            </footer>
+            <?php include '../../includes/footer.php'; ?>
         </div>
     </div>
     <script src="../../assets/js/jquery-3.5.1.slim.min.js"></script>
