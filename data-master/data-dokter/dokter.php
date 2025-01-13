@@ -25,7 +25,7 @@ if (!isset($_SESSION["jabatan"])) {
 </head>
 
 <body class="sb-nav-fixed">
-<?php include '../../includes/navbar.php'; ?>
+    <?php include '../../includes/navbar.php'?>
 
     <div id="layoutSidenav">
         <?php include '../../includes/sidebar.php';?>
@@ -92,7 +92,8 @@ if (!isset($_SESSION["jabatan"])) {
                     </div>
                 </div>
             </main>
-            <?php include '../../includes/footer.php'; ?>
+<?php include '../../includes/footer.php';?>
+
         </div>
     </div>
     <script src="../../assets/js/jquery-3.5.1.slim.min.js"></script>
