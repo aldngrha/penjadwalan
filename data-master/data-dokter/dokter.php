@@ -47,6 +47,7 @@ if (!isset($_SESSION["jabatan"])) {
             </li>
         </ul>
     </nav>
+    <p>hello</p>
     <div id="layoutSidenav">
         <?php include "../../includes/sidebar.php"; ?>
         <div id="layoutSidenav_content" class="bg-white text-dark">
