@@ -30,6 +30,7 @@ if (!isset($_SESSION["jabatan"])) {
         <div id="layoutSidenav_nav">
         <?php include "../../includes/sidebar.php"?>
         </div>
+
         <div id="layoutSidenav_content" class="bg-white text-dark">
             <main>
                 <div class="container-fluid">
@@ -81,13 +82,7 @@ if (!isset($_SESSION["jabatan"])) {
                     </div>
                 </div>
             </main>
-            <footer class="py-4 bg-dark mt-auto">
-                <div class="container-fluid">
-                    <div class="d-flex align-items-center justify-content-between small">
-                        <div class="text-muted font-weight-bold">Copyright &copy; Poli Klinik 2021</div>
-                    </div>
-                </div>
-            </footer>
+            <?php include 'includes/footer.php'; ?>
         </div>
     </div>
     <script src="../../assets/js/jquery-3.5.1.slim.min.js"></script>

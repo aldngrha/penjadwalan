@@ -28,6 +28,7 @@ if (!isset($_SESSION["jabatan"])) {
    <?php include '../../includes/navbar.php'?>
     <div id="layoutSidenav">
 <?php include '../../includes/sidebar.php'?>
+
         <div id="layoutSidenav_content" class="bg-white text-dark">
             <main>
                 <div class="container-fluid">
@@ -96,6 +97,8 @@ if (!isset($_SESSION["jabatan"])) {
                 </div>
             </main>
           <?php include '../../includes/footer.php'?>
+
+            
         </div>
     </div>
     <script src="../../assets/js/jquery-3.5.1.slim.min.js"></script>
