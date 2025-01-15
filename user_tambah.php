@@ -18,7 +18,7 @@ if (!isset($_SESSION["jabatan"])) {
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
     <meta name="description" content="" />
     <meta name="author" content="" />
-    <title>Poli Klinik | Data User</title>
+    <title>Penjadwalan | Data User</title>
     <link href="assets/css/styles.css" rel="stylesheet" />
     <link href="assets/css/dataTables.bootstrap4.min.css" rel="stylesheet" />
     <script src="assets/js/all.min.js"></script>

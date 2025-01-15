@@ -2,7 +2,7 @@
             <nav class="sb-sidenav accordion sb-sidenav-light" id="sidenavAccordion">
                 <div class="sb-sidenav-menu">
                     <div class="nav">
-                        <div class="sb-sidenav-menu-heading">Poli Klinik</div>
+                        <div class="sb-sidenav-menu-heading">Sistem Penjadwalan</div>
                         <a class="nav-link active" href="/index.php">
                             <div class="sb-nav-link-icon"><i class="fas fa-tachometer-alt"></i></div>
                             Dashboard

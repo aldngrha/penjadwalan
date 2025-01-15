@@ -142,7 +142,7 @@ if (!isset($_SESSION["jabatan"])) {
 
                                 ?>
 
-                            </div>
+                            </div>  
                         </div>
                     </div>
                 </div>
