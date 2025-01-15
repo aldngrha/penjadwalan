@@ -25,99 +25,138 @@ if (!isset($_SESSION["jabatan"])) {
 </head>
 
 <body class="sb-nav-fixed">
-    <nav class="sb-topnav navbar navbar-expand navbar-dark bg-primary">
-        <a class="navbar-brand font-weight-bold text-center" href="../index.php">Poli Klinik</a>
-        <button class="btn btn-link btn-sm order-1 order-lg-0" id="sidebarToggle" href="#"><i class="fas fa-bars"></i></button>
-        <!-- Navbar Search-->
-        <form class="d-none d-md-inline-block form-inline ml-auto mr-0 mr-md-3 my-2 my-md-0">
-            <div class="input-group">
-                <input class="form-control" type="text" placeholder="Search for..." aria-label="Search" aria-describedby="basic-addon2" />
-                <div class="input-group-append">
-                    <button class="btn btn-light" type="button"><i class="fas fa-search"></i></button>
-                </div>
-            </div>
-        </form>
-        <!-- Navbar-->
-        <ul class="navbar-nav ml-auto ml-md-0">
-            <li class="nav-item dropdown">
-                <a class="nav-link dropdown-toggle" id="userDropdown" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><i class="fas fa-user fa-fw"></i></a>
-                <div class="dropdown-menu dropdown-menu-right" aria-labelledby="userDropdown">
-                    <a class="dropdown-item" href="../login/logout.php">Logout</a>
-                </div>
-            </li>
-        </ul>
-    </nav>
+<?php include '../includes/navbar.php';?>
 
     <div id="layoutSidenav">
-        <div id="layoutSidenav_nav">
-            <nav class="sb-sidenav accordion sb-sidenav-light" id="sidenavAccordion">
-                <div class="sb-sidenav-menu">
-                    <div class="nav">
-                        <div class="sb-sidenav-menu-heading">Poli Klinik</div>
-                        <a class="nav-link" href="../index.php">
-                            <div class="sb-nav-link-icon"><i class="fas fa-tachometer-alt"></i></div>
-                            Dashboard
-                        </a>
-
-                        <?php if ($_SESSION["jabatan"] == 'admin') : ?>
-                            <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#data-master" aria-expanded="false" aria-controls="data-master">
-                                <div class="sb-nav-link-icon"><i class="fas fa-columns"></i></div>
-                                Data Master
-                                <div class="sb-sidenav-collapse-arrow"><i class="fas fa-angle-down"></i></div>
-                            </a>
-                            <div class="collapse" id="data-master" aria-labelledby="headingOne" data-parent="#sidenavAccordion">
-                                <nav class="sb-sidenav-menu-nested nav">
-                                    <a class="nav-link" href="../data-master/data-pasien/pasien.php">Data Pasien</a>
-                                    <a class="nav-link" href="../data-master/data-dokter/dokter.php">Data Dokter</a>
-                                    <a class="nav-link" href="../data-master/data-obat/obat.php">Data Obat</a>
-                                    <a class="nav-link" href="../data-master/data-poli/poli.php">Data Poli</a>
-                                </nav>
+    <?php include '../includes/sidebar.php';?>
+        <div id="layoutSidenav_content" class="bg-white text-dark">
+            <main>
+                <div class="container-fluid">
+                    <h1 class="mt-4">Informasi Obat</h1>
+                    <ol class="breadcrumb mb-4">
+                        <li class="breadcrumb-item"><a href="../index.php" class="text-decoration-none">Dashboard</a></li>
+                        <li class="breadcrumb-item active">Data Resep Obat</li>
+                        <li class="breadcrumb-item active">Informasi Obat</li>
+                    </ol>
+                    <div class="card mb-4">
+                        <div class="card-header mt-1">
+                            <div class="row">
+                                <div class="col-md-9 font-weight-bold">
+                                    Data Resep Obat : <?php echo $pecah['kd_resep']; ?>
+                                </div>
+                                <div class="col-md-3 font-weight-bold">
+                                    <label class="ml-5">Status : </label>
+                                    <?php if ($pecah['status_rsp'] == 0) { ?>
+                                        <span class="badge badge-danger p-2">Belum Bayar</span>
+                                    <?php } elseif ($pecah['status_rsp'] == 1) { ?>
+                                        <span class="badge badge-success p-2">Sudah Bayar</span>
+                                    <?php } else { ?>
+                                        <span class="badge badge-danger p-2">
+                                            <i class="fas fa-minus"></i>
+                                        </span>
+                                    <?php } ?>
+                                </div>
                             </div>
-                            <a class="nav-link" href="../data-pendaftaran/pendaftaran.php">
-                                <div class="sb-nav-link-icon"><i class="fas fa-clipboard-list"></i></div>
-                                Data Pendaftaran
-                            </a>
-                            <a class="nav-link" href="../data-pemeriksaan/pemeriksaan.php">
-                                <div class="sb-nav-link-icon"><i class="fas fa-address-book"></i></div>
-                                Data Pemeriksaan
-                            </a>
-                            <a class="nav-link active" href="../data-resep/resep.php">
-                                <div class="sb-nav-link-icon"><i class="fas fa-scroll"></i></div>
-                                Resep Obat
-                            </a>
-                            <a class="nav-link" href="../data-pembayaran/pembayaran.php">
-                                <div class="sb-nav-link-icon"><i class="fas fa-shopping-cart"></i></div>
-                                Kasir Pembayaran
-                            </a>
-                            <div class="sb-sidenav-menu-heading">Admin</div>
-                            <a class="nav-link" href="../user.php">
-                                <div class="sb-nav-link-icon"><i class="fas fa-chart-area"></i></div>
-                                Data User
-                            </a>
-                        <?php elseif ($_SESSION["jabatan"] == 'pembayaran') : ?>
-                            <a class="nav-link" href="../data-pembayaran/pembayaran.php">
-                                <div class="sb-nav-link-icon"><i class="fas fa-shopping-cart"></i></div>
-                                Kasir Pembayaran
-                            </a>
-                        <?php elseif ($_SESSION["jabatan"] == 'pendaftaran') : ?>
-                            <a class="nav-link" href="../data-pendaftaran/pendaftaran.php">
-                                <div class="sb-nav-link-icon"><i class="fas fa-clipboard-list"></i></div>
-                                Data Pendaftaran
-                            </a>
-                        <?php elseif ($_SESSION["jabatan"] == 'pemeriksaan') : ?>
-                            <a class="nav-link" href="../data-pemeriksaan/pemeriksaan.php">
-                                <div class="sb-nav-link-icon"><i class="fas fa-address-book"></i></div>
-                                Data Pemeriksaan
-                            </a>
-                            <a class="nav-link" href="../data-resep/resep.php">
-                                <div class="sb-nav-link-icon"><i class="fas fa-scroll"></i></div>
-                                Resep Obat
-                            </a>
-                        <?php endif; ?>
+                        </div>
+                        <div class="card-body">
+                            <div class="">
+                                <form class="mx-4" method="post" class="rsp" enctype="multipart/form-data">
+                                    <div class="form-group row">
+                                        <div class="col-sm-12">
+                                            <label>Kode Resep</label>
+                                            <input type="text" class="form-control" name="kd_resep" value="<?php echo $pecah['kd_resep']; ?>" readonly>
+                                        </div>
+                                    </div>
+                                    <div class="form-group row">
+                                        <div class="col-sm-1">
+                                            <label>ID</label>
+                                            <input type="text" class="form-control" name="id_pendaftaran" id="id_pendaftaran" value="<?php echo $pecah['id_pendaftaran']; ?>" readonly>
+                                        </div>
+                                        <div class="col-sm-3">
+                                            <label>Pasien</label>
+                                            <input type="text" class="form-control" name="nm_pasien" id="nm_pasien" value="<?php echo $pecah['nm_pasien']; ?>" readonly>
+                                        </div>
+                                        <div class="col-sm-4">
+                                            <label>Nama Dokter</label>
+                                            <input type="text" class="form-control" name="nm_dokter" id="nm_dokter" value="<?php echo $pecah['nm_dokter']; ?>" readonly>
+                                        </div>
+                                        <div class="col-sm-4">
+                                            <label>Tarif Dokter</label>
+                                            <input type="text" class="form-control" name="tarif_dokter" id="tarif_dokter" value="<?php echo "Rp. " . number_format($pecah['tarif_dokter']); ?>" readonly>
+                                        </div>
+                                    </div>
+                                    <div class="form-group row">
+                                        <div class="col-sm-4">
+                                            <label>Poli</label>
+                                            <input type="text" class="form-control" name="nm_poli" id="nm_poli" value="<?php echo $pecah['tarif_dokter']; ?>" readonly>
+                                        </div>
+                                        <div class="col-sm-4">
+                                            <label>Tanggal Daftar</label>
+                                            <input type="date" class="form-control" name="tgl_pendaftaran" id="tgl_pendaftaran" value="<?php echo $pecah['tgl_pendaftaran']; ?>" readonly>
+                                        </div>
+                                        <div class="col-sm-4">
+                                            <label>Tanggal Periksa</label>
+                                            <input type="date" class="form-control" name="tgl_pemeriksaan" id="tgl_pemeriksaan" value="<?php echo $pecah['tgl_pemeriksaan']; ?>" readonly>
+                                        </div>
+                                    </div>
+                                    <div class="form-group row">
+                                        <div class="col-sm-6">
+                                            <label>Keluhan</label>
+                                            <textarea class="form-control" name="keluhan" id="keluhan" rows="3" readonly><?php echo $pecah['keluhan']; ?></textarea>
+                                        </div>
+                                        <div class="col-sm-6">
+                                            <label>Diagnosa</label>
+                                            <textarea class="form-control" name="diagnosa" id="diagnosa" rows="3" readonly><?php echo $pecah['diagnosa']; ?></textarea>
+                                        </div>
+                                    </div>
+                                    <div class="form-group row">
+                                        <div class="col-sm-5">
+                                            <label>Obat</label>
+                                            <input type="text" class="form-control" name="nama_obt" id="nama_obt" value="<?php echo $pecah['nama_obt']; ?>" readonly>
+                                        </div>
+                                        <div class="col-sm-3">
+                                            <label>Harga</label>
+                                            <input type="text" class="form-control" name="harga_obt" id="harga_obt" value="<?php echo "Rp. " . number_format($pecah['harga_obt']); ?>" readonly>
+                                        </div>
+                                        <div class="col-sm-1">
+                                            <label>Jumlah</label>
+                                            <input type="text" class="form-control" name="jumlah_obt" id="jumlah_obt" value="<?php echo $pecah['jumlah_obt']; ?>" readonly>
+                                        </div>
+                                        <div class="col-sm-3">
+                                            <label>Sub Harga Obat</label>
+                                            <input type="text" class="form-control" name="subharga_obt" id="subharga_obt" value="<?php echo "Rp. " . number_format($pecah['subharga_obt']); ?>" readonly>
+                                        </div>
+                                    </div>
+                                    <div class="form-group row">
+                                        <div class="col-sm-12">
+                                            <label>Total Bayar</label>
+                                            <input type="text" class="form-control" name="total" id="total" value="<?php echo "Rp. " . number_format($pecah['total']); ?>" readonly>
+                                        </div>
+                                    </div>
+                                    <div class="form-group row">
+                                        <div class="col-sm-12">
+                                            <label>Keterangan</label>
+                                            <textarea class="form-control" name="keterangan" rows="4" readonly><?php echo $pecah['keterangan']; ?></textarea>
+                                        </div>
+                                    </div>
+                                    <div class="form-group row">
+                                        <div class="col-sm-12">
+                                            <input type="hidden" class="form-control" name="tgl_resep" value="<?php echo date("Y-m-d"); ?>" required>
+                                        </div>
+                                    </div>
+                                    <div class="form-group ">
+                                        <a href="resep.php" class="btn btn-danger font-weight-bold px-3 mr-2"><i class="fas fa-arrow-circle-left"></i> Kembali</a>
+                                    </div>
+                                </form>
+
+                            </div>
+                        </div>
                     </div>
                 </div>
-            </nav>
+            </main>
+            <?php include '../includes/footer.php';?>
         </div>
+    </div>
         <div id="layoutSidenav_content" class="bg-white text-dark">
             <main>
                 <div class="container-fluid">
@@ -205,13 +244,7 @@ if (!isset($_SESSION["jabatan"])) {
                     </div>
                 </div>
             </main>
-            <footer class="py-4 bg-dark mt-auto">
-                <div class="container-fluid">
-                    <div class="d-flex align-items-center justify-content-between small">
-                        <div class="text-muted font-weight-bold">Copyright &copy; Poli Klinik 2020</div>
-                    </div>
-                </div>
-            </footer>
+            <?php include '../includes/footer.php';?>
         </div>
     </div>
     <script src="../assets/js/jquery-3.5.1.slim.min.js"></script>
