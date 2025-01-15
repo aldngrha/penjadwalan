@@ -1,5 +1,4 @@
 <?php
 //koneksi ke database
-$koneksi = mysqli_connect("localhost", "root", "", "penjadwlan_terpadu");
-
+$koneksi = mysqli_connect("localhost", "root", "", "penjadwalan_terpadu");
 ?>
