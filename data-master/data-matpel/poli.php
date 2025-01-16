@@ -18,52 +18,32 @@ if (!isset($_SESSION["jabatan"])) {
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
     <meta name="description" content="" />
     <meta name="author" content="" />
-    <title>Poli Klinik | Data Master - Dokter</title>
+    <title>Poli Klinik | Data Master - Poli</title>
     <link href="../../assets/css/styles.css" rel="stylesheet" />
     <link href="../../assets/css/dataTables.bootstrap4.min.css" rel="stylesheet" />
     <script src="../../assets/js/all.min.js"></script>
 </head>
 
 <body class="sb-nav-fixed">
-    <?php include '../../includes/navbar.php'?>
-
-    <nav class="sb-topnav navbar navbar-expand navbar-dark bg-primary">
-        <a class="navbar-brand font-weight-bold text-center" href="../../index.php">Poli Klinik</a>
-        <button class="btn btn-link btn-sm order-1 order-lg-0" id="sidebarToggle" href="#"><i class="fas fa-bars"></i></button>
-        <!-- Navbar Search-->
-        <form class="d-none d-md-inline-block form-inline ml-auto mr-0 mr-md-3 my-2 my-md-0">
-            <div class="input-group">
-                <input class="form-control" type="text" placeholder="Search for..." aria-label="Search" aria-describedby="basic-addon2" />
-                <div class="input-group-append">
-                    <button class="btn btn-light" type="button"><i class="fas fa-search"></i></button>
-                </div>
-            </div>
-        </form>
-        <!-- Navbar-->
-        <ul class="navbar-nav ml-auto ml-md-0">
-            <li class="nav-item dropdown">
-                <a class="nav-link dropdown-toggle" id="userDropdown" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><i class="fas fa-user fa-fw"></i></a>
-                <div class="dropdown-menu dropdown-menu-right" aria-labelledby="userDropdown">
-                    <a class="dropdown-item" href="../../login/logout.php">Logout</a>
-                </div>
-            </li>
-        </ul>
-    </nav>
+    <?php include "../../includes/navbar.php"; ?>
     <div id="layoutSidenav">
-        <?php include '../../includes/sidebar.php';?>
+        <div id="layoutSidenav_nav">
+        <?php include "../../includes/sidebar.php"?>
+        </div>
+
         <div id="layoutSidenav_content" class="bg-white text-dark">
             <main>
                 <div class="container-fluid">
-                    <h1 class="mt-4">Data Dokter</h1>
+                    <h1 class="mt-4">Data Poli</h1>
                     <ol class="breadcrumb mb-4">
                         <li class="breadcrumb-item"><a href="../../index.php" class="text-decoration-none">Dashboard</a></li>
                         <li class="breadcrumb-item active">Data Master</li>
-                        <li class="breadcrumb-item active">Data Dokter</li>
+                        <li class="breadcrumb-item active">Data Poli</li>
                     </ol>
                     <div class="card mb-4">
                         <div class="card-header">
                             <i class="fas fa-table mr-1"></i>
-                            Tabel Data Dokter
+                            Tabel Data Poli
                         </div>
                         <div class="card-body">
                             <div class="table-responsive">
@@ -71,33 +51,21 @@ if (!isset($_SESSION["jabatan"])) {
                                     <thead>
                                         <tr>
                                             <th>No</th>
-                                            <th>Kode Dokter</th>
-                                            <th>Dokter</th>
-                                            <th>Spesialis</th>
-                                            <th>Poli</th>
-                                            <th>Tarif</th>
+                                            <th>Kode Poli</th>
+                                            <th>Nama Poli</th>
                                             <th>Aksi</th>
                                         </tr>
                                     </thead>
                                     <tbody>
                                         <?php $nomor = 1; ?>
-                                        <?php $ambil = $koneksi->query("SELECT * FROM tb_dokter JOIN tb_poli ON tb_dokter.id_poli = tb_poli.id_poli"); ?>
+                                        <?php $ambil = $koneksi->query("SELECT * FROM tb_poli"); ?>
                                         <?php while ($pecah = $ambil->fetch_assoc()) { ?>
                                             <tr>
                                                 <td><?php echo $nomor; ?></td>
-                                                <td><?php echo $pecah['kd_dokter']; ?></td>
-                                                <td><?php echo $pecah['nm_dokter']; ?></td>
-                                                <td><?php echo $pecah['spesialis_dokter']; ?></td>
+                                                <td><?php echo $pecah['kd_poli']; ?></td>
                                                 <td><?php echo $pecah['nm_poli']; ?></td>
-                                                <td>Rp. <?php echo number_format($pecah['tarif_dokter']); ?></td>
                                                 <td>
-                                                    <a href="dokter_view.php?&id_dokter=<?php echo $pecah['id_dokter']; ?>" class="btn-primary btn-sm btn">
-                                                        <i class="fas fa-eye"></i></i>
-                                                    </a>
-                                                    <a href="dokter_ubah.php?&id_dokter=<?php echo $pecah['id_dokter']; ?>" class="btn-warning btn-sm btn">
-                                                        <i class="fas fa-edit"></i>
-                                                    </a>
-                                                    <a href="dokter_hapus.php?&id_dokter=<?php echo $pecah['id_dokter']; ?>" class="btn-danger btn-sm btn">
+                                                    <a href="poli_hapus.php?&id_poli=<?php echo $pecah['id_poli']; ?>" class="btn-danger btn-sm btn">
                                                         <i class="fas fa-trash"></i>
                                                     </a>
                                                 </td>
@@ -109,12 +77,12 @@ if (!isset($_SESSION["jabatan"])) {
                             </div>
                         </div>
                         <div class="card-footer">
-                            <a href="dokter_tambah.php" class="btn-success btn px-3 font-weight-bold"><i class="fas fa-plus "></i> Tambah Data Dokter</a>
+                            <a href="poli_tambah.php" class="btn-success btn px-3 font-weight-bold"><i class="fas fa-plus"></i> Tambah Data Poli</a>
                         </div>
                     </div>
                 </div>
             </main>
-            <?php include '../../includes/footer.php';?>
+            <?php include 'includes/footer.php'; ?>
         </div>
     </div>
     <script src="../../assets/js/jquery-3.5.1.slim.min.js"></script>
