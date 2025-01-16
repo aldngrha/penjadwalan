@@ -11,7 +11,7 @@ include "../koneksi.php";
 	<meta charset="utf-8">
 	<meta name="author" content="Kodinger">
 	<meta name="viewport" content="width=device-width,initial-scale=1">
-	<title>Poli Klinik | Login</title>
+	<title>Sistem Penjadwalan Terpadu | Login</title>
 	<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
 	<link rel="stylesheet" type="text/css" href="css/my-login.css">
 </head>
@@ -51,40 +51,34 @@ include "../koneksi.php";
 								$user = $_POST['username'];
 								$pass = $_POST['password'];
 
-								$query = mysqli_query($koneksi, "SELECT * FROM tb_user WHERE username='$user' AND password='$pass'");
+								$query = mysqli_query($koneksi, "SELECT * FROM users WHERE username='$user' AND password='$pass'");
 								$masuk = mysqli_num_rows($query);
 								if ($masuk == 0) {
 									echo "<script>
-        								alert('Username atau password anda salah ')
+        								alert('Username atau password anda salah')
           							</script>";
 								} else {
 									$masuk1 = mysqli_fetch_assoc($query);
-									if ($masuk1["jabatan"] == 'admin') {
-										$_SESSION["jabatan"] = 'admin';
+									if ($masuk1["role_id"] == '1') {
+										$_SESSION["role_id"] = 'admin';
 										$_SESSION["user"] = $user;
 										echo "<script>
           									alert('Anda berhasil Login!')
           										document.location='../index.php'
           								</script>";
-									} else if ($masuk1["jabatan"] == 'pembayaran') {
-										$_SESSION["jabatan"] = 'pembayaran';
+									} else if ($masuk1["role_id"] == '2') {
+										$_SESSION["role_id"] = 'guru';
 										echo "<script>
 											alert('Anda berhasil Login!')
 												document.location='../index.php'
 										</script>";
-									} else if ($masuk1["jabatan"] == 'pendaftaran') {
-										$_SESSION["jabatan"] = 'pendaftaran';
+									} else if ($masuk1["role_id"] == '3') {
+										$_SESSION["role_id"] = 'siswa';
 										echo "<script>
 											alert('Anda berhasil Login!')
 												document.location='../index.php'
 										</script>";
-									} else if ($masuk1["jabatan"] == 'pemeriksaan') {
-										$_SESSION["jabatan"] = 'pemeriksaan';
-										echo "<script>
-											alert('Anda berhasil Login!')
-												document.location='../index.php'
-										</script>";
-									}
+									} 
 								}
 							}
 							?>
