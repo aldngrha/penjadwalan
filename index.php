@@ -2,7 +2,7 @@
 session_start();
 include 'koneksi.php';
 
-if (!isset($_SESSION["jabatan"])) {
+if (!isset($_SESSION["role_id"])) {
     echo "<script>location='login/index.php'</script>";
     exit();
 }
@@ -18,7 +18,7 @@ if (!isset($_SESSION["jabatan"])) {
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
     <meta name="description" content="" />
     <meta name="author" content="" />
-    <title>Poli Klinik | Dashboard</title>
+    <title>Penjadwalan Terpadu | Dashboard</title>
     <link href="assets/css/styles.css" rel="stylesheet" />
     <link href="assets/css/dataTables.bootstrap4.min.css" rel="stylesheet" />
     <script src="assets/js/all.min.js"></script>
@@ -45,10 +45,10 @@ if (!isset($_SESSION["jabatan"])) {
                                     <div class="row no-gutters align-items-center">
                                         <div class="col mr-2">
                                             <div class="text-xs font-weight-bold text-white text-uppercase mb-1">
-                                                Data Jadwal</div>
+                                                Data Jurusan</div>
                                             <div class="h5 mb-0 font-weight-bold text-gray">
-                                                <?php $ambil = mysqli_query($koneksi, "SELECT * FROM tb_pasien"); ?>
-                                                <?php $count = mysqli_num_rows($ambil); ?>
+                                                <?php $majors = mysqli_query($koneksi, "SELECT * FROM  majors"); ?>
+                                                <?php $count = mysqli_num_rows($majors); ?>
                                                 <?php echo $count; ?>
                                             </div>
                                         </div>
@@ -67,10 +67,10 @@ if (!isset($_SESSION["jabatan"])) {
                                     <div class="row no-gutters align-items-center">
                                         <div class="col mr-2">
                                             <div class="text-xs font-weight-bold text-white text-uppercase mb-1">
-                                                Data Kelas</div>
+                                                Data kategori</div>
                                             <div class="h5 mb-0 font-weight-bold text-gray">
-                                                <?php $ambil = mysqli_query($koneksi, "SELECT * FROM tb_obat"); ?>
-                                                <?php $count = mysqli_num_rows($ambil); ?>
+                                                <?php $categories = mysqli_query($koneksi, "SELECT * FROM categories"); ?>
+                                                <?php $count = mysqli_num_rows($categories); ?>
                                                 <?php echo $count; ?>
                                             </div>
                                         </div>

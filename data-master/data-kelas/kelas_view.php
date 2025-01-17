@@ -2,10 +2,13 @@
 session_start();
 include '../../koneksi.php';
 
-if (!isset($_SESSION["jabatan"])) {
+if (!isset($_SESSION["role_id"])) {
     echo "<script>location='../../login/index.php'</script>";
     exit();
 }
+
+$classes = $koneksi->query("SELECT * FROM classes WHERE class_id='$_GET[class_id]'");
+$class = $classes->fetch_assoc();
 
 ?>
 
@@ -18,70 +21,57 @@ if (!isset($_SESSION["jabatan"])) {
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
     <meta name="description" content="" />
     <meta name="author" content="" />
-    <title>Poli Klinik | Data Master - Poli</title>
+    <title>Penjadwalan Terpadu | Data Master - Kelas</title>
     <link href="../../assets/css/styles.css" rel="stylesheet" />
     <link href="../../assets/css/dataTables.bootstrap4.min.css" rel="stylesheet" />
     <script src="../../assets/js/all.min.js"></script>
 </head>
 
 <body class="sb-nav-fixed">
-    <?php include '../../includes/navbar.php'?>
+    <?php include '../../includes/navbar.php';?>
     <div id="layoutSidenav">
-        <?php include '../../includes/sidebar.php'?>
+        <div id="layoutSidenav_nav">
+        <?php include '../../includes/sidebar.php';?>    
+        </div>
         <div id="layoutSidenav_content" class="bg-white text-dark">
             <main>
                 <div class="container-fluid">
-                    <h1 class="mt-4">Tambah Data Poli</h1>
+                    <h1 class="mt-4">Informasi Kelas</h1>
                     <ol class="breadcrumb mb-4">
                         <li class="breadcrumb-item"><a href="../../index.php" class="text-decoration-none">Dashboard</a></li>
                         <li class="breadcrumb-item active">Data Master</li>
-                        <li class="breadcrumb-item active">Data Poli</li>
-                        <li class="breadcrumb-item active">Tambah Data Poli</li>
+                        <li class="breadcrumb-item active">Data Kelas</li>
+                        <li class="breadcrumb-item active">Info Kelas</li>
                     </ol>
                     <div class="card mb-4">
                         <div class="card-header font-weight-bold">
-                            Data Poli
+                            Data Kelas : <?php echo $class['name']; ?>
                         </div>
                         <div class="card-body">
                             <div class="">
-                                <div class="form-group row">
-                                    <div class="btn-block disabled mx-4">
-                                        <?php $ambil = mysqli_query($koneksi, "SELECT * FROM tb_poli ORDER BY id_poli DESC LIMIT 1"); ?>
-                                        <?php $data = $ambil->fetch_assoc(); ?>
-                                        <label>Data Terakhir</label>
-                                        <input type="text" class="form-control text-center" value="<?php echo $data['kd_poli'] ?>" readonly>
-                                    </div>
-                                </div>
                                 <form class="ml-4" method="post" enctype="multipart/form-data">
                                     <div class="form-group row">
                                         <div class="col-sm-4">
-                                            <label>Kode Poli</label>
-                                            <input type="text" class="form-control" name="kd_poli" value="POL-" required>
+                                            <label>ID Kelas</label>
+                                            <input type="text" class="form-control" name="class_id" value="<?php echo $class['class_id'] ?>" readonly>
                                         </div>
                                     </div>
                                     <div class="form-group row">
                                         <div class="col-sm-4">
-                                            <label>Nama Poli</label>
-                                            <input type="text" class="form-control" name="nm_poli" required>
+                                            <label>Kelas</label>
+                                            <input type="text" class="form-control" name="name" value="<?php echo $class['name'] ?>" readonly>
                                         </div>
                                     </div>
-                                    <div class="form-group ">
-                                        <button class="btn btn-success font-weight-bold px-3 mr-2" name="save"><i class="far fa-save"></i> Simpan</button>
-                                        <a href="poli.php" class="btn btn-danger font-weight-bold px-3 mr-2"><i class="fas fa-arrow-circle-left"></i> Kembali</a>
+                                    <div class="form-group">
+                                        <?php if ($_SESSION["class_id"] == 'admin') : ?>
+                                            <a href="kelas_ubah.php?&class_id=<?php echo $pecah['class_id']; ?>" class="btn-warning btn font-weight-bold px-3 mr-2 text-white"><i class="fas fa-edit"></i> Edit</a>
+                                            <a href="kelas.php" class="btn btn-danger font-weight-bold px-3 mr-2"><i class="fas fa-arrow-circle-left"></i> Kembali</a>
+                                        <?php elseif ($_SESSION["role_id"] == 'pembayaran') : ?>
+                                            <a href="kelas.php" class="btn btn-danger font-weight-bold px-3 mr-2"><i class="fas fa-arrow-circle-left"></i> Kembali</a>
+                                        <?php endif; ?>
+
                                     </div>
                                 </form>
-
-                                <?php
-                                if (isset($_POST['save'])) {
-                                    $koneksi->query("INSERT INTO tb_poli (id_poli, kd_poli, nm_poli) 
-                                        VALUES ('', '$_POST[kd_poli]', '$_POST[nm_poli]')");
-
-                                    echo "<script>alert('Data Tersimpan!');</script>";
-                                    echo "<script>location='poli.php'</script>";
-                                }
-
-                                ?>
-
                             </div>
                         </div>
                     </div>
