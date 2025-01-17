@@ -2,13 +2,13 @@
 session_start();
 include '../../koneksi.php';
 
-if (!isset($_SESSION["jabatan"])) {
+if (!isset($_SESSION["role_id"])) {
     echo "<script>location='../../login/index.php'</script>";
     exit();
 }
 
-$ambil = $koneksi->query("SELECT * FROM tb_obat WHERE id_obat='$_GET[id_obat]'");
-$pecah = $ambil->fetch_assoc();
+$categories = $koneksi->query("SELECT * FROM categories WHERE category_id = '$_GET[category_id]'");
+$category = $categories->fetch_assoc();
 
 ?>
 
@@ -21,7 +21,7 @@ $pecah = $ambil->fetch_assoc();
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
     <meta name="description" content="" />
     <meta name="author" content="" />
-    <title>Poli Klinik | Data Master - Obat</title>
+    <title>Sistem Penjadwalan Terpadu | Data Master - Kategori</title>
     <link href="../../assets/css/styles.css" rel="stylesheet" />
     <link href="../../assets/css/dataTables.bootstrap4.min.css" rel="stylesheet" />
     <script src="../../assets/js/all.min.js"></script>
@@ -35,65 +35,35 @@ $pecah = $ambil->fetch_assoc();
         <div id="layoutSidenav_content" class="bg-white text-dark">
             <main>
                 <div class="container-fluid">
-                    <h1 class="mt-4">Informasi Obat</h1>
+                    <h1 class="mt-4">Informasi Kategori</h1>
                     <ol class="breadcrumb mb-4">
                         <li class="breadcrumb-item"><a href="../../index.php" class="text-decoration-none">Dashboard</a></li>
                         <li class="breadcrumb-item active">Data Master</li>
-                        <li class="breadcrumb-item active">Data Obat</li>
-                        <li class="breadcrumb-item active">Info Obat</li>
+                        <li class="breadcrumb-item active">Data Kategori</li>
+                        <li class="breadcrumb-item active">Info Kategori</li>
                     </ol>
                     <div class="card mb-4">
                         <div class="card-header font-weight-bold">
-                            Data Obat : <?php echo $pecah['nm_obat']; ?>
+                            Data Kategori : <?php echo $category['name']; ?>
                         </div>
                         <div class="card-body">
                             <div class="">
                                 <form class="ml-4" method="post" enctype="multipart/form-data">
                                     <div class="form-group row">
                                         <div class="col-sm-4">
-                                            <label>ID Obat</label>
-                                            <input type="text" class="form-control" name="id_obat" value="<?php echo $pecah['id_obat']; ?>" readonly>
+                                            <label>ID Kategori</label>
+                                            <input type="text" class="form-control" name="category_id" value="<?php echo $category['category_id']; ?>" readonly>
                                         </div>
                                     </div>
                                     <div class="form-group row">
                                         <div class="col-sm-4">
-                                            <label>Kode Obat</label>
-                                            <input type="text" class="form-control" name="kd_obat" value="<?php echo $pecah['kd_obat']; ?>" readonly>
-                                        </div>
-                                    </div>
-                                    <div class="form-group row">
-                                        <div class="col-sm-4">
-                                            <label>Nama Obat</label>
-                                            <input type="text" class="form-control" name="nm_obat" value="<?php echo $pecah['nm_obat']; ?>" readonly>
-                                        </div>
-                                    </div>
-                                    <div class="form-group row">
-                                        <div class="col-sm-4">
-                                            <label>Jenis Obat</label>
-                                            <input type="text" class="form-control" name="jenis_obat" value="<?php echo $pecah['jenis_obat']; ?>" readonly>
-                                        </div>
-                                    </div>
-                                    <div class="form-group row">
-                                        <div class="col-sm-4">
-                                            <label>Stok Obat</label>
-                                            <input type="text" class="form-control" name="stok" value="<?php echo $pecah['stok']; ?>" readonly>
-                                        </div>
-                                    </div>
-                                    <div class="form-group row">
-                                        <div class="col-sm-4">
-                                            <label>Harga</label>
-                                            <input type="text" class="form-control" name="harga_obat" value="<?php echo $pecah['harga_obat']; ?>" readonly>
-                                        </div>
-                                    </div>
-                                    <div class="form-group row">
-                                        <div class="col-sm-4">
-                                            <label>Expired Obat</label>
-                                            <input type="date" class="form-control" name="exp_obat" value="<?php echo $pecah['exp_obat']; ?>" readonly>
+                                            <label>Kategori</label>
+                                            <input type="text" class="form-control" name="name" value="<?php echo $category['name']; ?>" readonly>
                                         </div>
                                     </div>
                                     <div class="form-group ">
-                                        <a href="obat_ubah.php?&id_obat=<?php echo $pecah['id_obat']; ?>" class="btn-warning btn font-weight-bold px-3 mr-2 text-white"><i class="fas fa-edit"></i> Edit</a>
-                                        <a href="obat.php" class="btn btn-danger font-weight-bold px-3 mr-2"><i class="fas fa-arrow-circle-left"></i> Kembali</a>
+                                        <a href="kategpri_ubah.php?&category_id=<?php echo $category['category_id']; ?>" class="btn-warning btn font-weight-bold px-3 mr-2 text-white"><i class="fas fa-edit"></i> Edit</a>
+                                        <a href="kategori.php" class="btn btn-danger font-weight-bold px-3 mr-2"><i class="fas fa-arrow-circle-left"></i> Kembali</a>
                                     </div>
                                 </form>
 

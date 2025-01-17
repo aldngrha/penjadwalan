@@ -7,9 +7,8 @@ if (!isset($_SESSION["jabatan"])) {
     exit();
 }
 
-$ambil = $koneksi->query("SELECT * FROM tb_dokter JOIN tb_poli ON tb_dokter.id_poli = tb_poli.id_poli
-            WHERE id_dokter='$_GET[id_dokter]'");
-$pecah = $ambil->fetch_assoc();
+$categories = $koneksi->query("SELECT * FROM categories WHERE category_id = '$_GET[category_id]'");
+$category = $categories->fetch_assoc();
 
 ?>
 
@@ -22,7 +21,7 @@ $pecah = $ambil->fetch_assoc();
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
     <meta name="description" content="" />
     <meta name="author" content="" />
-    <title>Poli Klinik | Data Master - Dokter</title>
+    <title>Sistem Penjadwalan Terpadu | Data Master - Kategori</title>
     <link href="../../assets/css/styles.css" rel="stylesheet" />
     <link href="../../assets/css/dataTables.bootstrap4.min.css" rel="stylesheet" />
     <script src="../../assets/js/all.min.js"></script>
@@ -36,61 +35,80 @@ $pecah = $ambil->fetch_assoc();
         <div id="layoutSidenav_content" class="bg-white text-dark">
             <main>
                 <div class="container-fluid">
-                    <h1 class="mt-4">Informasi Dokter</h1>
+                    <h1 class="mt-4">Ubah Data Kategori</h1>
                     <ol class="breadcrumb mb-4">
                         <li class="breadcrumb-item"><a href="../../index.php" class="text-decoration-none">Dashboard</a></li>
                         <li class="breadcrumb-item active">Data Master</li>
-                        <li class="breadcrumb-item active">Data Dokter</li>
-                        <li class="breadcrumb-item active">Info Dokter</li>
+                        <li class="breadcrumb-item active">Data Kategori</li>
+                        <li class="breadcrumb-item active">Ubah Data Kategori</li>
                     </ol>
                     <div class="card mb-4">
                         <div class="card-header font-weight-bold">
-                            Data Dokter : <?php echo $pecah['nm_dokter']; ?>
+                            Data Kategori : <?php echo $category['name']; ?>
                         </div>
                         <div class="card-body">
                             <div class="">
                                 <form class="ml-4" method="post" enctype="multipart/form-data">
                                     <div class="form-group row">
                                         <div class="col-sm-4">
-                                            <label>ID Dokter</label>
-                                            <input type="text" class="form-control" name="id_dokter" value="<?php echo $pecah['id_dokter'] ?>" readonly>
+                                            <label>ID Kategori</label>
+                                            <input type="text" class="form-control" name="category_id" value="<?php echo $category['category_id']; ?>" readonly>
                                         </div>
                                     </div>
                                     <div class="form-group row">
                                         <div class="col-sm-4">
-                                            <label>Kode Dokter</label>
-                                            <input type="text" class="form-control" name="kd_dokter" value="<?php echo $pecah['kd_dokter'] ?>" readonly>
+                                            <label>Kategori</label>
+                                            <input type="text" class="form-control" name="name" value="<?php echo $category['name']; ?>" required>
                                         </div>
                                     </div>
                                     <div class="form-group row">
                                         <div class="col-sm-4">
-                                            <label>Nama Dokter</label>
-                                            <input type="text" class="form-control" name="nm_dokter" value="<?php echo $pecah['nm_dokter'] ?>" readonly>
+                                            <label>Jenis Obat</label>
+                                            <select class="custom-select" name="jenis_obat">
+                                                <option value="<?php echo $pecah['jenis_obat']; ?>"><?php echo $pecah['jenis_obat']; ?></option>
+                                                <option value="Pil">Pil</option>
+                                                <option value="Tablet">Tablet</option>
+                                                <option value="Sirup">Sirup</option>
+                                                <option value="Salep">Salep</option>
+                                                <option value="Kaplet">Kaplet</option>
+                                            </select>
                                         </div>
                                     </div>
                                     <div class="form-group row">
                                         <div class="col-sm-4">
-                                            <label>Spesialis</label>
-                                            <input type="text" class="form-control" name="spesialis_dokter" value="<?php echo $pecah['spesialis_dokter'] ?>" readonly>
+                                            <label>Stok Obat</label>
+                                            <input type="text" class="form-control" name="stok" value="<?php echo $pecah['stok']; ?>" required>
                                         </div>
                                     </div>
                                     <div class="form-group row">
                                         <div class="col-sm-4">
-                                            <label>Bagian Poli</label>
-                                            <input type="text" class="form-control" name="spesialis_dokter" value="<?php echo $pecah['nm_poli'] ?>" readonly>
+                                            <label>Harga</label>
+                                            <input type="text" class="form-control" name="harga_obat" value="<?php echo $pecah['harga_obat']; ?>" required>
                                         </div>
                                     </div>
                                     <div class="form-group row">
                                         <div class="col-sm-4">
-                                            <label>Tarif</label>
-                                            <input type="text" class="form-control" name="tarif_dokter" value="<?php echo $pecah['tarif_dokter'] ?>" readonly>
+                                            <label>Expired Obat</label>
+                                            <input type="date" class="form-control" name="exp_obat" value="<?php echo $pecah['exp_obat']; ?>" required>
                                         </div>
                                     </div>
                                     <div class="form-group ">
-                                        <a href="dokter_ubah.php?&id_dokter=<?php echo $pecah['id_dokter']; ?>" class="btn-warning btn font-weight-bold px-3 mr-2 text-white"><i class="fas fa-edit"></i> Edit</a>
-                                        <a href="dokter.php" class="btn btn-danger font-weight-bold px-3 mr-2"><i class="fas fa-arrow-circle-left"></i> Kembali</a>
+                                        <button class="btn btn-success font-weight-bold px-3 mr-2" name="ubah"><i class="fas fa-save"></i> Simpan</button>
+                                        <a href="kategori.php" class="btn btn-danger font-weight-bold px-3 mr-2"><i class="fas fa-arrow-circle-left"></i> Kembali</a>
                                     </div>
                                 </form>
+
+                                <?php
+                                if (isset($_POST['ubah'])) {
+                                    $koneksi->query("UPDATE tb_obat SET nm_obat='$_POST[nm_obat]', jenis_obat='$_POST[jenis_obat]', 
+                                        stok='$_POST[stok]', harga_obat='$_POST[harga_obat]', exp_obat='$_POST[exp_obat]'
+                                    WHERE id_obat='$_GET[id_obat]'");
+
+                                    echo "<script>alert('Data Kategori Telah Diubah!');</script>";
+                                    echo "<script>location='kategori.php'</script>";
+                                }
+                                ?>
+
                             </div>
                         </div>
                     </div>

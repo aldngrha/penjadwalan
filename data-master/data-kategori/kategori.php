@@ -2,7 +2,7 @@
 session_start();
 include '../../koneksi.php';
 
-if (!isset($_SESSION["jabatan"])) {
+if (!isset($_SESSION["role_id"])) {
     echo "<script>location='../../login/index.php'</script>";
     exit();
 }
@@ -18,7 +18,7 @@ if (!isset($_SESSION["jabatan"])) {
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
     <meta name="description" content="" />
     <meta name="author" content="" />
-    <title>Poli Klinik | Data Master - Obat</title>
+    <title>Sistem Penjadwalan Terpadu | Data Master - Kategori</title>
     <link href="../../assets/css/styles.css" rel="stylesheet" />
     <link href="../../assets/css/dataTables.bootstrap4.min.css" rel="stylesheet" />
     <script src="../../assets/js/all.min.js"></script>
@@ -32,16 +32,16 @@ if (!isset($_SESSION["jabatan"])) {
         <div id="layoutSidenav_content" class="bg-white text-dark">
             <main>
                 <div class="container-fluid">
-                    <h1 class="mt-4">Data Obat</h1>
+                    <h1 class="mt-4">Data Kategori</h1>
                     <ol class="breadcrumb mb-4">
                         <li class="breadcrumb-item"><a href="../../index.php" class="text-decoration-none">Dashboard</a></li>
                         <li class="breadcrumb-item active">Data Master</li>
-                        <li class="breadcrumb-item active">Data Obat</li>
+                        <li class="breadcrumb-item active">Data Kategori</li>
                     </ol>
                     <div class="card mb-4">
                         <div class="card-header">
                             <i class="fas fa-table mr-1"></i>
-                            Tabel Data Obat
+                            Tabel Data Kategori
                         </div>
                         <div class="card-body">
                             <div class="table-responsive">
@@ -49,43 +49,27 @@ if (!isset($_SESSION["jabatan"])) {
                                     <thead>
                                         <tr>
                                             <th>No</th>
-                                            <th>Kode Obat</th>
-                                            <th>Nama Obat</th>
-                                            <th>Jenis</th>
-                                            <th>Stok</th>
-                                            <th>Harga</th>
-                                            <th>Exp. Obat</th>
-                                            <th>Status</th>
+                                            <th>ID Kategori</th>
+                                            <th>Nama Kategori</th>
                                             <th>Aksi</th>
                                         </tr>
                                     </thead>
                                     <tbody>
                                         <?php $nomor = 1; ?>
-                                        <?php $ambil = $koneksi->query("SELECT * FROM tb_obat"); ?>
-                                        <?php while ($pecah = $ambil->fetch_assoc()) { ?>
+                                        <?php $categories = $koneksi->query("SELECT * FROM tb_obat"); ?>
+                                        <?php while ($category = $categories->fetch_assoc()) { ?>
                                             <tr>
                                                 <td><?php echo $nomor; ?></td>
-                                                <td><?php echo $pecah['kd_obat']; ?></td>
-                                                <td><?php echo $pecah['nm_obat']; ?></td>
-                                                <td><?php echo $pecah['jenis_obat']; ?></td>
-                                                <td><?php echo $pecah['stok']; ?></td>
-                                                <td>Rp. <?php echo number_format($pecah['harga_obat']); ?></td>
-                                                <td><?php echo $pecah['exp_obat']; ?></td>
+                                                <td><?php echo $category['category_id']; ?></td>
+                                                <td><?php echo $category['name']; ?></td>
                                                 <td>
-                                                    <?php if ($pecah['stok'] <= 0) { ?>
-                                                        <span class="badge badge-danger p-2">Kosong</span>
-                                                    <?php } else { ?>
-                                                        <span class="badge badge-success p-2">Tersedia</span>
-                                                    <?php } ?>
-                                                </td>
-                                                <td>
-                                                    <a href="obat_view.php?&id_obat=<?php echo $pecah['id_obat']; ?>" class="btn-primary btn-sm btn">
+                                                    <a href="kategori_view.php?&category_id=<?php echo $category['category_id']; ?>" class="btn-primary btn-sm btn">
                                                         <i class="fas fa-eye"></i></i>
                                                     </a>
-                                                    <a href="obat_ubah.php?&id_obat=<?php echo $pecah['id_obat']; ?>" class="btn-warning btn-sm btn">
+                                                    <a href="kategori_ubah.php?&category_id=<?php echo $category['category_id']; ?>" class="btn-warning btn-sm btn">
                                                         <i class="fas fa-edit"></i>
                                                     </a>
-                                                    <a href="obat_hapus.php?&id_obat=<?php echo $pecah['id_obat']; ?>" class="btn-danger btn-sm btn">
+                                                    <a href="kategori_hapus.php?&category_id=<?php echo $category['category_id']; ?>" class="btn-danger btn-sm btn">
                                                         <i class="fas fa-trash"></i>
                                                     </a>
                                                 </td>
@@ -97,7 +81,7 @@ if (!isset($_SESSION["jabatan"])) {
                             </div>
                         </div>
                         <div class="card-footer">
-                            <a href="obat_tambah.php" class="btn-success btn px-3 font-weight-bold"><i class="fas fa-plus"></i> Tambah Data Obat</a>
+                            <a href="kategori_tambah.php" class="btn-success btn px-3 font-weight-bold"><i class="fas fa-plus"></i> Tambah Data Kategori</a>
                         </div>
                     </div>
                 </div>
