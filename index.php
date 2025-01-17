@@ -91,7 +91,7 @@ if (!isset($_SESSION["role_id"])) {
                                             <div class="text-xs font-weight-bold text-white text-uppercase mb-1">Mata Pelajaran
                                             </div>
                                             <div class="h5 mb-0 font-weight-bold text-gray">
-                                                <?php $ambil = mysqli_query($koneksi, "SELECT * FROM tb_pendaftaran WHERE status = '0'"); ?>
+                                                <?php $ambil = mysqli_query($koneksi, "SELECT * FROM schedules"); ?>
                                                 <?php $count = mysqli_num_rows($ambil); ?>
                                                 <?php echo $count; ?>
                                             </div>
@@ -111,9 +111,9 @@ if (!isset($_SESSION["role_id"])) {
                                     <div class="row no-gutters align-items-center">
                                         <div class="col mr-2">
                                             <div class="text-xs font-weight-bold text-white text-uppercase mb-1">
-                                                Kategori</div>
+                                                Data Kelas</div>
                                             <div class="h5 mb-0 font-weight-bold text-gray">
-                                                <?php $ambil = mysqli_query($koneksi, "SELECT * FROM tb_resep WHERE status_rsp = '0'"); ?>
+                                                <?php $ambil = mysqli_query($koneksi, "SELECT * FROM classes"); ?>
                                                 <?php $count = mysqli_num_rows($ambil); ?>
                                                 <?php echo $count; ?>
                                             </div>
