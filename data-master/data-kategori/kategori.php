@@ -56,7 +56,7 @@ if (!isset($_SESSION["role_id"])) {
                                     </thead>
                                     <tbody>
                                         <?php $nomor = 1; ?>
-                                        <?php $categories = $koneksi->query("SELECT * FROM tb_obat"); ?>
+                                        <?php $categories = $koneksi->query("SELECT * FROM categories"); ?>
                                         <?php while ($category = $categories->fetch_assoc()) { ?>
                                             <tr>
                                                 <td><?php echo $nomor; ?></td>
