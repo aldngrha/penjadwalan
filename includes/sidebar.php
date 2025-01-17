@@ -7,7 +7,7 @@
                             <div class="sb-nav-link-icon"><i class="fas fa-tachometer-alt"></i></div>
                             Dashboard
                         </a>
-                        <?php if ($_SESSION["role_id"] == '1') : ?>
+                        <?php if ($_SESSION["role_id"] == 'admin') : ?>
                             <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#data-master" aria-expanded="false" aria-controls="data-master">
                                 <div class="sb-nav-link-icon"><i class="fas fa-columns"></i></div>
                                 Data Master
@@ -31,7 +31,7 @@
                                 <div class="sb-nav-link-icon"><i class="fas fa-chart-area"></i></div>
                                 Data User
                             </a>
-                        <?php elseif ($_SESSION["role_id"] == '2') : ?>
+                        <?php elseif ($_SESSION["role_id"] == 'guru') : ?>
                             <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#data-master" aria-expanded="false" aria-controls="data-master">
                                 <div class="sb-nav-link-icon"><i class="fas fa-columns"></i></div>
                                 Data Master
@@ -49,7 +49,7 @@
                                 <div class="sb-nav-link-icon"><i class="fas fa-clipboard-list"></i></div>
                                 Penjadwalan
                             </a>                                
-                        <?php elseif ($_SESSION["role_id"] == '3') : ?>
+                        <?php elseif ($_SESSION["role_id"] == 'siswa') : ?>
                             <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#data-master" aria-expanded="false" aria-controls="data-master">
                                 <div class="sb-nav-link-icon"><i class="fas fa-columns"></i></div>
                                 Data Master
