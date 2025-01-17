@@ -54,7 +54,7 @@ if (!isset($_SESSION["role_id"])) {
                                     </thead>
                                     <tbody>
                                         <?php $nomor = 1; ?>
-                                        <?php $classes = $koneksi->query("SELECT * FROM class"); ?>
+                                        <?php $classes = $koneksi->query("SELECT * FROM classes"); ?>
                                         <?php while ($class = $classes->fetch_assoc()) { ?>
                                             <tr>
                                                 <td><?php echo $nomor; ?></td>
