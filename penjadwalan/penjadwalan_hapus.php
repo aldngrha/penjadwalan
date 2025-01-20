@@ -13,6 +13,6 @@ $subject = $subjects->fetch_assoc();
 $koneksi->query("DELETE FROM subjects WHERE subject_id='$_GET[subject_id]'");
 
 echo "<script>alert('Data Mata Pelajaran Terhapus!');</script>";
-echo "<script>location='poli.php'</script>";
+echo "<script>location='penjadwalan.php'</script>";
 
 ?>

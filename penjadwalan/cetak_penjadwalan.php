@@ -7,7 +7,7 @@ include "../koneksi.php";
 <html>
 
 <head>
-    <title>Cetak Laporan Pembayaran</title>
+    <title>Cetak Laporan Penjadwalan</title>
     <style>
         .content img {
             width: 105px;
@@ -40,9 +40,9 @@ include "../koneksi.php";
                 <td>
                     <img src="../assets/img/logo.png">
                     <p>
-                        <span style="font-size: 16px; font-weight: bold;">Poliklinik Rhema Delapan </span><br>
-                        <span style="font-size: 13px;">Jl. Semeru, Telp : (123) 9876543</span><br>
-                        <span style="font-size: 12px;">E-mail: support@rhemadelapan.com</span>
+                        <span style="font-size: 16px; font-weight: bold;">Penjadwalan Terpadu</span><br>
+                        <span style="font-size: 13px;">SMK Cendikia Farma Husada</span><br>
+                        <span style="font-size: 12px;">E-mail: smk_cefada@gmail.com</span>
                     </p>
                 </td>
             </tr>
@@ -53,11 +53,11 @@ include "../koneksi.php";
     <table class="tabel" colspan="11" border="1" width="950" style="border: 1px solid black; border-collapse: collapse;">
         <tr>
             <th>No</th>
-            <th>Kode Pembayaran</th>
-            <th>Nama Pasien</th>
-            <th>Tagihan</th>
-            <th>Bayar</th>
-            <th>Kembalian</th>
+            <th>ID Penjadwalan</th>
+            <th>Kategori</th>
+            <th>Mata Pelajaran</th>
+            <th>Kelas</th>
+            <th>Jurusan</th>
             <th>Tanggal</th>
         </tr>
         <?php

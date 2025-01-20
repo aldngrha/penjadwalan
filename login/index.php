@@ -23,7 +23,7 @@ include "../koneksi.php";
 				<div class="card-wrapper mt-5">
 					<div class="card fat mt-5">
 						<div class="card-body">
-							<h4 class="card-title">Login</h4>
+							<h4 class="card-title"><center>Login</center></h4>
 							<form method="POST" class="my-login-validation" novalidate="">
 								<div class="form-group">
 									<label for="username">Username</label>
@@ -85,7 +85,7 @@ include "../koneksi.php";
 						</div>
 					</div>
 					<div class="footer">
-						Copyright &copy; Poli Klinik 2024
+						Copyright &copy; Sistem Informasi Manajemen Penjadwalan 2025
 					</div>
 				</div>
 			</div>

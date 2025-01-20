@@ -18,7 +18,7 @@ if (!isset($_SESSION["role_id"])) {
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
     <meta name="description" content="" />
     <meta name="author" content="" />
-    <title>Penjadwalan Terpadu | Kasir Pembayaran</title>
+    <title>Penjadwalan Terpadu | Penjadwalan</title>
     <link href="../assets/css/styles.css" rel="stylesheet" />
     <link href="../assets/css/dataTables.bootstrap4.min.css" rel="stylesheet" />
     <script src="../assets/js/all.min.js"></script>
@@ -32,157 +32,115 @@ if (!isset($_SESSION["role_id"])) {
         <div id="layoutSidenav_content" class="bg-white text-dark">
             <main>
                 <div class="container-fluid">
-                    <h1 class="mt-4">Pembayaran</h1>
+                    <h1 class="mt-4">Data Penjadwalan</h1>
                     <ol class="breadcrumb mb-4">
                         <li class="breadcrumb-item"><a href="../index.php" class="text-decoration-none">Dashboard</a></li>
-                        <li class="breadcrumb-item active">Data Kasir Pembayaran</li>
-                        <li class="breadcrumb-item active">Pembayaran</li>
+                        <li class="breadcrumb-item active">Data Penjadwalan</li>
+                        <li class="breadcrumb-item active">Penjadwalan</li>
                     </ol>
                     <div class="card mb-4">
                         <div class="card-header font-weight-bold">
-                            Kasir Pembayaran
+                            Penjadwalan
                         </div>
                         <div class="card-body">
                             <div class="">
-                                <div class="form-group row">
-                                    <div class="btn-block disabled mx-4">
-                                        <?php $ambil = mysqli_query($koneksi, "SELECT * FROM tb_pembayaran ORDER BY kd_pembayaran DESC LIMIT 1"); ?>
-                                        <?php $data = $ambil->fetch_assoc(); ?>
-                                        <label>Data Terakhir</label>
-                                        <input type="text" class="form-control text-center" value="<?php echo $data['kd_pembayaran'] ?>" readonly>
-                                    </div>
-                                </div>
-                                <form class="mx-4" method="post" class="rsp" enctype="multipart/form-data">
+                                <form class="ml-4" method="post" enctype="multipart/form-data">
                                     <div class="form-group row">
-                                        <div class="col-sm-12">
-                                            <label>Kode Pembayaran</label>
-                                            <input type="text" class="form-control" name="kd_pembayaran" value="TRA-" required>
-                                        </div>
-                                    </div>
-                                    <div class="form-group row">
-                                        <div class="col-sm-1">
-                                            <label>ID</label>
-                                            <input type="text" class="form-control" name="id_resep" id="id_resep" readonly>
-                                        </div>
-                                        <div class="col-sm-2">
-                                            <label>Kode Resep</label>
-                                            <input type="text" class="form-control" name="kd_resep" id="kd_resep" readonly>
-                                        </div>
                                         <div class="col-sm-4">
-                                            <label>Pasien</label>
-                                            <select class="custom-select" name="nm_pasien" id="nm_pasien" onchange='dataResep(this.value)'>
-                                                <option value="0" disabled selected>Pilih Pasien</option>
+                                            <label>ID Penjadwalan</label>
+                                            <input type="text" class="form-control" name="schedule_id" readonly>
+                                        </div>
+                                    </div>
+                                    <div class="form-group row">
+                                        <div class="col-sm-4">
+                                            <label>Kategori</label>
+                                            <select class="custom-select" name="category_id">
+                                                <option value="pilih">Pilih Kategori</option>
                                                 <?php
-                                                $ambil2 = $koneksi->query("SELECT * FROM tb_resep a
-                                                    JOIN tb_pemeriksaan b ON a.id_pemeriksaan = b.id_pemeriksaan
-                                                    JOIN tb_pendaftaran c ON b.id_pendaftaran = c.id_pendaftaran
-                                                    JOIN tb_pasien d ON c.id_pasien = d.id_pasien
-                                                    JOIN tb_dokter e ON c.id_dokter = e.id_dokter
-                                                    JOIN tb_poli f ON c.id_poli = f.id_poli WHERE a.status_rsp = '0'");
-                                                $dataArray = "var dataName = new Array();\n";
-
+                                                $schedules = $koneksi->query("SELECT * FROM schedules");
+                                                $schedule = $schedules->fetch_assoc();
                                                 ?>
 
-                                                <?php while ($daftar = $ambil2->fetch_array()) { ?>
-                                                    <option value="<?php echo $daftar['nm_pasien']; ?>">
-                                                        <?php echo $daftar['nm_pasien']; ?>
-                                                    </option>
-                                                <?php
-                                                    $dataArray .= "dataName['" . $daftar['nm_pasien'] . "'] = {
-                                                        id_resep:'" . $daftar['id_resep'] . "',
-                                                        tarif_dokter:'" . $daftar['tarif_dokter'] . "',
-                                                        nm_dokter:'" . $daftar['nm_dokter'] . "',
-                                                        nm_poli:'" . $daftar['nm_poli'] . "',
-                                                        nama_obt:'" . $daftar['nama_obt'] . "',
-                                                        harga_obt:'" . $daftar['harga_obt'] . "',
-                                                        jumlah_obt:'" . $daftar['jumlah_obt'] . "',
-                                                        subharga_obt:'" . $daftar['subharga_obt'] . "',
-                                                        total:'" . $daftar['total'] . "',
-                                                        kd_resep:'" . $daftar['kd_resep'] . "'
-                                                    };\n";
-                                                }
-                                                ?>
-
+                                                <?php foreach ($shedules as $schedule) : ?>
+                                                    <option value="<?php echo $schedule['schedule_id']; ?>"><?php echo $schedule['name']; ?></option>
+                                                <?php endforeach; ?>
                                             </select>
                                         </div>
-                                        <div class="col-sm-5">
-                                            <label>Poli</label>
-                                            <input type="text" class="form-control" name="nm_poli" id="nm_poli" readonly>
-                                        </div>
                                     </div>
                                     <div class="form-group row">
-                                        <div class="col-sm-6">
-                                            <label>Nama Dokter</label>
-                                            <input type="text" class="form-control" name="nm_dokter" id="nm_dokter" readonly>
-                                        </div>
-                                        <div class="col-sm-6">
-                                            <label>Tarif Dokter</label>
-                                            <input type="text" class="form-control" name="tarif_dokter" id="tarif_dokter" readonly>
-                                        </div>
-                                    </div>
-                                    <div class="form-group row">
-                                        <div class="col-sm-5">
-                                            <label>Obat</label>
-                                            <input type="text" class="form-control" name="nama_obt" id="nama_obt" readonly>
-                                        </div>
-                                        <div class="col-sm-3">
-                                            <label>Harga</label>
-                                            <input type="text" class="form-control" name="harga_obt" id="harga_obt" readonly>
-                                        </div>
-                                        <div class="col-sm-1">
-                                            <label>Jumlah</label>
-                                            <input type="text" class="form-control" name="jumlah_obt" id="jumlah_obt" readonly>
-                                        </div>
-                                        <div class="col-sm-3">
-                                            <label>Harga Obat</label>
-                                            <input type="text" class="form-control" name="subharga_obt" id="subharga_obt" readonly>
-                                        </div>
-                                    </div>
-                                    <div class="form-group row">
-                                        <div class="col-sm-12">
-                                            <label>Total Pembayaran</label>
-                                            <input type="text" class="form-control" name="total" id="total" onkeyup="Hitung();" readonly>
-                                        </div>
-                                    </div>
-                                    <div class="form-group row">
-                                        <div class="col-sm-12">
-                                            <input type="hidden" class="form-control" name="tgl_pembayaran" value="<?php echo date("Y-m-d"); ?>" required>
-                                        </div>
-                                    </div>
-                                    <div class="form-group row">
-                                        <div class="col-sm-8">
-                                            <label>Bayar</label>
-                                            <input type="text" class="form-control" name="jumlah_bayar" id="jumlah_bayar" onkeyup="Hitung();">
-                                        </div>
                                         <div class="col-sm-4">
-                                            <label>Kembalian</label>
-                                            <input type="text" class="form-control" name="kembalian" id="kembalian" readonly>
+                                            <label>Mata Pelajaran</label>
+                                            <select class="custom-select" name="subject_id">
+                                                <option value="pilih">Pilih Mata Pelajaran</option>
+                                                <?php
+                                                $schedules = $koneksi->query("SELECT * FROM subjects");
+                                                $schedule = $schedules->fetch_assoc();
+                                                ?>
+
+                                                <?php foreach ($shedules as $schedule) : ?>
+                                                    <option value="<?php echo $schedule['subject_id']; ?>"><?php echo $schedule['name']; ?></option>
+                                                <?php endforeach; ?>
+                                            </select>
+                                        </div>
+                                    </div>
+                                    <div class="form-group row">
+                                        <div class="col-sm-4">
+                                            <label>Kelas</label>
+                                            <select class="custom-select" name="class_id">
+                                                <option value="pilih">Pilih Kelas</option>
+                                                <?php
+                                                $schedules = $koneksi->query("SELECT * FROM classes");
+                                                $schedule = $schedules->fetch_assoc();
+                                                ?>
+
+                                                <?php foreach ($shedules as $schedule) : ?>
+                                                    <option value="<?php echo $schedule['class_id']; ?>"><?php echo $schedule['name']; ?></option>
+                                                <?php endforeach; ?>
+                                            </select>
+                                        </div>
+                                    </div>
+                                    <div class="form-group row">
+                                        <div class="col-sm-4">
+                                            <label>Jurusan</label>
+                                            <select class="custom-select" name="major_id">
+                                                <option value="pilih">Pilih Jurusan</option>
+                                                <?php
+                                                $schedules = $koneksi->query("SELECT * FROM majors");
+                                                $schedule = $schedules->fetch_assoc();
+                                                ?>
+
+                                                <?php foreach ($shedules as $schedule) : ?>
+                                                    <option value="<?php echo $schedule['major_id']; ?>"><?php echo $schedule['name']; ?></option>
+                                                <?php endforeach; ?>
+                                            </select>
                                         </div>
                                     </div>
                                     <div class="form-group ">
                                         <button class="btn btn-success font-weight-bold px-3 mr-2" name="save"><i class="far fa-save"></i> Simpan</button>
-                                        <a href="pembayaran.php" class="btn btn-danger font-weight-bold px-3 mr-2"><i class="fas fa-arrow-circle-left"></i> Kembali</a>
+                                        <a href="penjadwalan.php" class="btn btn-danger font-weight-bold px-3 mr-2"><i class="fas fa-arrow-circle-left"></i> Kembali</a>
                                     </div>
                                 </form>
 
                                 <?php
                                 if (isset($_POST['save'])) {
-                                    if ($_POST['id_resep'] == 0) {
-                                        echo "<script>alert('Pilih Resep dengan Benar!');</script>";
-                                    } else {
-                                        $nama_pasien = $_POST['nm_pasien'];
-                                        $total_pembayaran = $_POST['total'];
-
-                                        $sql = "UPDATE tb_resep SET status_rsp = '1' WHERE id_resep='$_POST[id_resep]';";
-                                        $sql .= "INSERT INTO tb_pembayaran (kd_pembayaran, id_resep, nama_pasien, total_pembayaran, 
-                                                    jumlah_bayar, kembalian, tgl_pembayaran, status_pembayaran) 
-                                                VALUES ('$_POST[kd_pembayaran]', '$_POST[id_resep]', '$nama_pasien', '$total_pembayaran', 
-                                                    '$_POST[jumlah_bayar]', '$_POST[kembalian]', '$_POST[tgl_pembayaran]', '1')";
-
-                                        $koneksi->multi_query($sql);
+                                    if ($_POST['category_id'] == "pilih") {
+                                        echo "<script>alert('Pilih kategori dengan Benar!');</script>";
+                                    }else if ($_POST['subject_id'] == "pilih") {
+                                        echo "<script>alert('Pilih mata pelajaran dengan Benar!');</script>";
+                                       
+                                    } else if ($_POST['class_id'] == "pilih") {
+                                        echo "<script>alert('Pilih kelas dengan Benar!');</script>";
+                                       
+                                    }else if ($_POST['major_id'] == "pilih") {
+                                        echo "<script>alert('Pilih jurusan dengan Benar!');</script>";
+                                       
+                                    }else {
+                                        $koneksi->query("INSERT INTO schedules (category_id, class_id, major_id) 
+                                        VALUES ('$_POST[category_id]', '$_POST[class_id]','$_POST[major_id]')");
 
                                         echo "<script>alert('Data Tersimpan!');</script>";
-                                        echo "<script>location='pembayaran.php'</script>";
+                                        echo "<script>location='penjadwalan.php'</script>";
+                                       
                                     }
                                 }
 
