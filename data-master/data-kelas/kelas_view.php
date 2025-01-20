@@ -63,7 +63,7 @@ $class = $classes->fetch_assoc();
                                         </div>
                                     </div>
                                     <div class="form-group">
-                                        <?php if ($_SESSION["class_id"] == 'admin') : ?>
+                                        <?php if ($_SESSION["role_id"] == 'admin') : ?>
                                             <a href="kelas_ubah.php?&class_id=<?php echo $pecah['class_id']; ?>" class="btn-warning btn font-weight-bold px-3 mr-2 text-white"><i class="fas fa-edit"></i> Edit</a>
                                             <a href="kelas.php" class="btn btn-danger font-weight-bold px-3 mr-2"><i class="fas fa-arrow-circle-left"></i> Kembali</a>
                                         <?php elseif ($_SESSION["role_id"] == 'pembayaran') : ?>

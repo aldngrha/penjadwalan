@@ -48,19 +48,19 @@ if (!isset($_SESSION["role_id"])) {
                                 <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
                                     <thead>
                                         <tr>
-                                            <th>No</th>
+                                            <th>No.</th>
                                             <th>ID Jurusan</th>
                                             <th>Nama Jurusan</th>
                                             <th>Aksi</th>
                                         </tr>
                                     </thead>
                                     <tbody>
-                                        <?php $nomor = 1; ?>
+                                       <?php $nomor = 1;?>
                                         <?php $majors = $koneksi->query("SELECT * FROM majors"); ?>
                                         <?php while ($major = $majors->fetch_assoc()) { ?>
                                             <tr>
-                                                <td><?php echo $nomor; ?></td>
-                                                <td><?php echo $major['major_id']; ?></td>
+                                                <td><?php echo $nomor;?></td>
+                                                <td><?php echo $major['major_id'];?></td>
                                                 <td><?php echo $major['name']; ?></td>
                                                 <td>
                                                     <a href="jurusan_view.php?&major_id=<?php echo $major['major_id']; ?>" class="btn-primary btn-sm btn">

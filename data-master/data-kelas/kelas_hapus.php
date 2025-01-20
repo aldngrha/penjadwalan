@@ -13,6 +13,6 @@ $class = $classes->fetch_assoc();
 $koneksi->query("DELETE FROM classes WHERE class_id='$_GET[class_id]'");
 
 echo "<script>alert('Data Kelas Terhapus!');</script>";
-echo "<script>location='pasien.php'</script>";
+echo "<script>location='kelas.php'</script>";
 
 ?>

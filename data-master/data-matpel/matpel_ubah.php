@@ -7,8 +7,8 @@ if (!isset($_SESSION["role_id"])) {
     exit();
 }
 
-$classes = $koneksi->query("SELECT * FROM classes WHERE class_id='$_GET[class_id]'");
-$class = $classes->fetch_assoc();
+$subjects = $koneksi->query("SELECT * FROM subjects WHERE subject_id='$_GET[subject_id]'");
+$subject = $subjects->fetch_assoc();
 
 ?>
 
@@ -21,7 +21,7 @@ $class = $classes->fetch_assoc();
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
     <meta name="description" content="" />
     <meta name="author" content="" />
-    <title>Penjadwalan Terpadu | Data Master - Kelas</title>
+    <title>Penjadwalan Terpadu | Data Master - Mata Pelajaran</title>
     <link href="../../assets/css/styles.css" rel="stylesheet" />
     <link href="../../assets/css/dataTables.bootstrap4.min.css" rel="stylesheet" />
     <script src="../../assets/js/all.min.js"></script>
@@ -45,33 +45,49 @@ $class = $classes->fetch_assoc();
                     </ol>
                     <div class="card mb-4">
                         <div class="card-header font-weight-bold">
-                            Data Pasien : <?php echo $class['name']; ?>
+                            Data Mata Pelajaran : <?php echo $subject['name']; ?>
                         </div>
                         <div class="card-body">
                             <div class="">
                                 <form class="ml-4" method="post" enctype="multipart/form-data">
                                     <div class="form-group row">
                                         <div class="col-sm-4">
-                                            <label>ID Kelas</label>
-                                            <input type="number" class="form-control" name="class_id" value="<?php echo $class['class_id'] ?>" readonly>
+                                            <label>ID Mata Pelajaran</label>
+                                            <input type="number" class="form-control" name="class_id" value="<?php echo $subject['subject_id'] ?>" readonly>
                                         </div>
                                     </div>
                                     <div class="form-group row">
                                         <div class="col-sm-4">
-                                            <label>Kelas</label>
-                                            <input type="text" class="form-control" name="name" value="<?php echo $class['name'] ?>" required>
+                                            <label>Mata Pelajaran</label>
+                                            <input type="text" class="form-control" name="name" value="<?php echo $subject['name'] ?>" required>
+                                        </div>
+                                    </div>
+                                    <div class="form-group row">
+                                        <div class="col-sm-4">
+                                            <label>ID User</label>
+                                            <select class="custom-select" name="user_id" value="<?php echo $subject['user_id']?>">
+                                                <option value="pilih">Pilih User</option>
+                                                <?php
+                                                $subjects = $koneksi->query("SELECT * FROM users");
+                                                $subject = $subjects->fetch_assoc();
+                                                ?>
+
+                                                <?php foreach ($subjects as $subject) :?>
+                                                    <option value="<?php echo $subject['user_id']?>"><?php echo $subject['username']?></option>
+                                                    <?php endforeach; ?>
+                                            </select>
                                         </div>
                                     </div>
                                     <div class="form-group">
                                         <button class="btn btn-success font-weight-bold px-3 mr-2" name="ubah"><i class="fas fa-save"></i> Simpan</button>
-                                        <a href="kelas.php" class="btn btn-danger font-weight-bold px-3 mr-2"><i class="fas fa-arrow-circle-left"></i> Kembali</a>
+                                        <a href="matpel.php" class="btn btn-danger font-weight-bold px-3 mr-2"><i class="fas fa-arrow-circle-left"></i> Kembali</a>
                                     </div>
                                 </form>
                                 <?php
                                 if (isset($_POST['ubah'])) {
-                                    $koneksi->query("UPDATE classes SET name ='$_POST[name]' WHERE class_id = '$_GET[class_id]'");
-                                    echo "<script>alert('Data Kelas Telah Diubah!');</script>";
-                                    echo "<script>location='kelas.php'</script>";
+                                    $koneksi->query("UPDATE subjects SET name, user_id ='$_POST[name]', '$_POST[user_id]' WHERE subject_id = '$_GET[subject_id]'");
+                                    echo "<script>alert('Data Mata Pelajaran Telah Diubah!');</script>";
+                                    echo "<script>location='matpel.php'</script>";
                                 }
                                 ?>
                             </div>

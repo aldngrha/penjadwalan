@@ -52,22 +52,27 @@ if (!isset($_SESSION["role_id"])) {
                                         <tr>
                                             <th>No</th>
                                             <th>Mata Pelajaran</th>
-                                            <th>ID User</th>
+                                            <th>User</th>
                                             <th>Aksi</th>
                                         </tr>
                                     </thead>
                                     <tbody>
                                         <?php $nomor = 1; ?>
-                                        <?php $subjects = $koneksi->query("SELECT * FROM subjects"); ?>
+                                        <?php $subjects = $koneksi->query("SELECT subjects.subject_id, subjects.name, 
+                                        users.username FROM subjects
+                                        LEFT JOIN users ON subjects.user_id = users.user_id"); ?>
                                         <?php while ($subject = $subjects->fetch_assoc()) { ?>
                                             <tr>
                                                 <td><?php echo $nomor; ?></td>
                                                 <td><?php echo $subject['name']; ?></td>
-                                                <td><?php echo $subject['user_id']; ?></td>
+                                                <td><?php echo $subject['username']; ?></td>
                                                 <td>
-                                                    <a href="matpel_hapus.php?&subject_idi=<?php echo $subject['subject_id']; ?>" class="btn-danger btn-sm btn">
-                                                        <i class="fas fa-trash"></i>
-                                                    </a>
+                                                        <a href="matpel_ubah.php?&subject_id=<?php echo $subject['subject_id']; ?>" class="btn-warning btn-sm btn">
+                                                            <i class="fas fa-edit"></i>
+                                                        </a>
+                                                        <a href="matpel_hapus.php?&subject_id=<?php echo $subject['subject_id']; ?>" class="btn-danger btn-sm btn">
+                                                            <i class="fas fa-trash"></i>
+                                                        </a>
                                                 </td>
                                             </tr>
                                             <?php $nomor++; ?>
@@ -77,13 +82,11 @@ if (!isset($_SESSION["role_id"])) {
                             </div>
                         </div>
                         <div class="card-footer">
-                            <a href="matpel_tambah.php" class="btn-success btn px-3 font-weight-bold"><i class="fas fa-plus"></i> Tambah Data Mata Pelajaran</a>
-                            <a href="matpel_hapus.php" class="btn-success btn px-3 font-weight-bold"><i class="fas fa-plus"></i> Hapus Data Mata Pelajaran</a>
-                        </div>
+                            <a href="matpel_tambah.php" class="btn-success btn px-3 font-weight-bold"><i class="fas fa-plus"></i> Tambah Data Mata Pelajaran</a>                        </div>
                     </div>
                 </div>
             </main>
-            <?php include 'includes/footer.php'; ?>
+            <?php include '../../includes/footer.php'; ?>
         </div>
     </div>
     <script src="../../assets/js/jquery-3.5.1.slim.min.js"></script>

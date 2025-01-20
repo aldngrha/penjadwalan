@@ -31,7 +31,7 @@ if (!isset($_SESSION["role_id"])) {
         <div id="layoutSidenav_content" class="bg-white text-dark">
             <main>
                 <div class="container-fluid">
-                    <h1 class="mt-4">Tambah Data Mata Prlajaran</h1>
+                    <h1 class="mt-4">Tambah Data Mata Pelajaran</h1>
                     <ol class="breadcrumb mb-4">
                         <li class="breadcrumb-item"><a href="../../index.php" class="text-decoration-none">Dashboard</a></li>
                         <li class="breadcrumb-item active">Data Master</li>
@@ -46,10 +46,10 @@ if (!isset($_SESSION["role_id"])) {
                             <div class="">
                                 <div class="form-group row">
                                     <div class="btn-block disabled mx-4">
-                                        <?php $ambil = mysqli_query($koneksi, "SELECT * FROM tb_poli ORDER BY id_poli DESC LIMIT 1"); ?>
-                                        <?php $data = $ambil->fetch_assoc(); ?>
-                                        <label>Data Terakhir</label>
-                                        <input type="text" class="form-control text-center" value="<?php echo $data['kd_poli'] ?>" readonly>
+                                        <?php $subjects = mysqli_query($koneksi, "SELECT subjects.subject_id, subjects.name, users.username, subjects.created_at FROM subjects
+                                        LEFT JOIN users ON subjects.user_id = users.user_id"); ?>
+                                        <label>ID Mata Pelajaran</label>
+                                        <input type="text" class="form-control text-center" name="subject_id" readonly>
                                     </div>
                                 </div>
                                 <form class="ml-4" method="post" enctype="multipart/form-data">
@@ -62,22 +62,36 @@ if (!isset($_SESSION["role_id"])) {
                                     <div class="form-group row">
                                         <div class="col-sm-4">
                                             <label>ID User</label>
-                                            <input type="text" class="form-control" name="user_id" required>
+                                            <select class="custom-select" name="user_id">
+                                                <option value="pilih">Pilih User</option>
+                                                <?php
+                                                $subjects = $koneksi->query("SELECT * FROM users");
+                                                $subject = $subjects->fetch_assoc();
+                                                ?>
+
+                                                <?php foreach ($subjects as $subject) :?>
+                                                    <option value="<?php echo $subject['user_id']?>"><?php echo $subject['username']?></option>
+                                                    <?php endforeach; ?>
+                                            </select>
                                         </div>
                                     </div>
                                     <div class="form-group ">
                                         <button class="btn btn-success font-weight-bold px-3 mr-2" name="save"><i class="far fa-save"></i> Simpan</button>
-                                        <a href="poli.php" class="btn btn-danger font-weight-bold px-3 mr-2"><i class="fas fa-arrow-circle-left"></i> Kembali</a>
+                                        <a href="matpel.php" class="btn btn-danger font-weight-bold px-3 mr-2"><i class="fas fa-arrow-circle-left"></i> Kembali</a>
                                     </div>
                                 </form>
 
                                 <?php
                                 if (isset($_POST['save'])) {
-                                    $koneksi->query("INSERT INTO subjects (subject_id, `name`, user_id) 
-                                        VALUES ('','$_POST[name]')");
+                                    if($_POST['user_id'] === "pilih"){
+                                        echo "<script>alert('Pilih User dengan BENAR!');</script>";
+                                    }else{
+                                    $koneksi->query("INSERT INTO subjects (`name`, user_id) 
+                                        VALUES ('$_POST[name]','$_POST[user_id]')");
 
                                     echo "<script>alert('Data Tersimpan!');</script>";
-                                    echo "<script>location='poli.php'</script>";
+                                    echo "<script>location='matpel.php'</script>";
+                                    }
                                 }
 
                                 ?>

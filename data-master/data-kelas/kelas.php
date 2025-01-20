@@ -50,6 +50,7 @@ if (!isset($_SESSION["role_id"])) {
                                         <tr>
                                             <th>No</th>
                                             <th>Kelas</th>
+                                            <th>Aksi</th>
                                         </tr>
                                     </thead>
                                     <tbody>
@@ -70,7 +71,7 @@ if (!isset($_SESSION["role_id"])) {
                                                         <a href="kelas_hapus.php?&class_id=<?php echo $class['class_id']; ?>" class="btn-danger btn-sm btn">
                                                             <i class="fas fa-trash"></i>
                                                         </a>
-                                                    <?php elseif ($_SESSION["role"] == 'penjadwalan') : ?>
+                                                    <?php elseif ($_SESSION["role_id"] == 'penjadwalan') : ?>
                                                         <a href="kelas_view.php?&class_id=<?php echo $class['class_id']; ?>" class="btn-primary btn-sm btn">
                                                             <i class="fas fa-eye"></i></i>
                                                         </a>
@@ -84,7 +85,7 @@ if (!isset($_SESSION["role_id"])) {
                             </div>
                         </div>
                         <div class="card-footer">
-                            <a href="kelas_tambah.php" class="btn-success btn px-3 font-weight-bold"><i class="fas fa-plus "></i> Tambah Data Pasien</a>
+                            <a href="kelas_tambah.php" class="btn-success btn px-3 font-weight-bold"><i class="fas fa-plus "></i> Tambah Data Kelas</a>
                         </div>
                     </div>
                 </div>

@@ -58,7 +58,7 @@ $major = $majors->fetch_assoc();
                                     <div class="form-group row">
                                         <div class="col-sm-4">
                                             <label>Nama Jurusan</label>
-                                            <input type="text" class="form-control" name="name" value="<?php echo $major['namer'] ?>" readonly>
+                                            <input type="text" class="form-control" name="name" value="<?php echo $major['name'] ?>" readonly>
                                         </div>
                                     </div>
                                     <div class="form-group ">
