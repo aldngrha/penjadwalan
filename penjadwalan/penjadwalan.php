@@ -53,6 +53,7 @@ if (!isset($_SESSION["role_id"])) {
                                             <th>Mata Pelajaran</th>
                                             <th>Kelas</th>
                                             <th>Jurusan</th>
+                                            <th>created_at</th>
                                             <th>Aksi</th>
                                         </tr>
                                     </thead>
