@@ -45,19 +45,11 @@ if (!isset($_SESSION["role_id"])) {
                         </div>
                         <div class="card-body">
                             <div class="">
-                                <div class="form-group row">
-                                    <div class="btn-block disabled mx-4">
-                                        <?php $ambil = mysqli_query($koneksi, "SELECT * FROM tb_obat ORDER BY id_obat DESC LIMIT 1"); ?>
-                                        <?php $data = $ambil->fetch_assoc(); ?>
-                                        <label>Data Terakhir</label>
-                                        <input type="text" class="form-control text-center" value="<?php echo $data['kd_obat'] ?>" readonly>
-                                    </div>
-                                </div>
                                 <form class="ml-4" method="post" enctype="multipart/form-data">
-                                    <div class="form-group row">
+                                <div class="form-group row">
                                         <div class="col-sm-4">
                                             <label>ID Kategori</label>
-                                            <input type="text" class="form-control" name="kd_obat" value="OBT-" required>
+                                            <input type="text" class="form-control" name="category_id" readonly>
                                         </div>
                                     </div>
                                     <div class="form-group row">
@@ -68,21 +60,18 @@ if (!isset($_SESSION["role_id"])) {
                                     </div>
                                     <div class="form-group ">
                                         <button class="btn btn-success font-weight-bold px-3 mr-2" name="save"><i class="far fa-save"></i> Simpan</button>
-                                        <a href="obat.php" class="btn btn-danger font-weight-bold px-3 mr-2"><i class="fas fa-arrow-circle-left"></i> Kembali</a>
+                                        <a href="kategori.php" class="btn btn-danger font-weight-bold px-3 mr-2"><i class="fas fa-arrow-circle-left"></i> Kembali</a>
                                     </div>
                                 </form>
 
                                 <?php
                                 if (isset($_POST['save'])) {
-                                    if ($_POST['jenis_obat'] == 'obt') {
-                                        echo "<script>alert('Pilih Obat dengan Benar!');</script>";
-                                    } else {
-                                        $koneksi->query("INSERT INTO tb_obat (id_obat, kd_obat, nm_obat, jenis_obat, stok, harga_obat, exp_obat) 
-                                        VALUES ('', '$_POST[kd_obat]', '$_POST[nm_obat]', '$_POST[jenis_obat]', '$_POST[stok]', '$_POST[harga_obat]', '$_POST[exp_obat]')");
+                                        $koneksi->query("INSERT INTO categories (`name`) 
+                                        VALUES ('$_POST[name]')");
 
                                         echo "<script>alert('Data Tersimpan!');</script>";
-                                        echo "<script>location='obat.php'</script>";
-                                    }
+                                        echo "<script>location='kategori.php'</script>";
+                                    
                                 }
 
                                 ?>

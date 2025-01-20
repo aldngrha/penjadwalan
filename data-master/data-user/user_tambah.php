@@ -1,9 +1,9 @@
 <?php
 session_start();
-include 'koneksi.php';
+include '../../koneksi.php';
 
 if (!isset($_SESSION["role_id"])) {
-    echo "<script>location='login/index.php'</script>";
+    echo "<script>location='../../login/index.php'</script>";
     exit();
 }
 
@@ -19,15 +19,15 @@ if (!isset($_SESSION["role_id"])) {
     <meta name="description" content="" />
     <meta name="author" content="" />
     <title>Penjadwalan Terpadu | Data User</title>
-    <link href="assets/css/styles.css" rel="stylesheet" />
-    <link href="assets/css/dataTables.bootstrap4.min.css" rel="stylesheet" />
-    <script src="assets/js/all.min.js"></script>
+    <link href="../../assets/css/styles.css" rel="stylesheet" />
+    <link href="../../assets/css/dataTables.bootstrap4.min.css" rel="stylesheet" />
+    <script src="../../assets/js/all.min.js"></script>
 </head>
 
 <body class="sb-nav-fixed">
-    <?php include 'includes/navbar.php'?>
+    <?php include '../../includes/navbar.php'?>
     <div id="layoutSidenav">
-    <?php include 'includes/sidebar.php'?>
+    <?php include '../../includes/sidebar.php'?>
         <div id="layoutSidenav_content" class="bg-white text-dark">
             <main>
                 <div class="container-fluid">
@@ -58,16 +58,28 @@ if (!isset($_SESSION["role_id"])) {
                                     </div>
                                     <div class="form-group row">
                                         <div class="col-sm-4">
-                                            <label>Jabatan</label>
-                                            <select class="custom-select" name="jabatan">
-                                                <option value="pilih">Pilih Jabatan</option>
+                                            <label>Email</label>
+                                            <input type="email" class="form-control" name="email" required data-eye>
+                                        </div>
+                                    </div>
+                                    <div class="form-group row">
+                                        <div class="col-sm-4">
+                                            <label>Photo</label>
+                                            <input type="text" class="form-control" name="photo" required data-eye>
+                                        </div>
+                                    </div>
+                                    <div class="form-group row">
+                                        <div class="col-sm-4">
+                                            <label>Role Pengguna</label>
+                                            <select class="custom-select" name="role_id">
+                                                <option value="pilih">Pilih Role Pengguna</option>
                                                 <?php
-                                                $ambil2 = $koneksi->query("SELECT * FROM tb_user");
-                                                $pecah2 = $ambil2->fetch_assoc();
+                                                $users = $koneksi->query("SELECT * FROM role");
+                                                $user = $users->fetch_assoc();
                                                 ?>
 
-                                                <?php foreach ($ambil2 as $poli) : ?>
-                                                    <option value="<?php echo $poli['jabatan']; ?>"><?php echo ucfirst($poli['jabatan']); ?></option>
+                                                <?php foreach ($users as $user) : ?>
+                                                    <option value="<?php echo $user['role_id']; ?>"><?php echo $user['name']; ?></option>
                                                 <?php endforeach; ?>
 
                                             </select>
@@ -81,11 +93,11 @@ if (!isset($_SESSION["role_id"])) {
 
                                 <?php
                                 if (isset($_POST['save'])) {
-                                    if ($_POST['jabatan'] == "pilih") {
-                                        echo "<script>alert('Pilih Jabatan dengan Benar!');</script>";
+                                    if ($_POST['role_id'] == 0) {
+                                        echo "<script>alert('Pilih Role Pengguna dengan Benar!');</script>";
                                     } else {
-                                        $koneksi->query("INSERT INTO tb_user (id_user, username, password, jabatan) 
-                                        VALUES ('', '$_POST[username]', '$_POST[password]', '$_POST[jabatan]')");
+                                        $koneksi->query("INSERT INTO users (username, password, email, photo, role_id) 
+                                        VALUES ('$_POST[username]', '$_POST[password]','$_POST[email]', '$_POST[photo]', '$_POST[role_id]' )");
 
                                         echo "<script>alert('Data Tersimpan!');</script>";
                                         echo "<script>location='user.php'</script>";
@@ -99,18 +111,18 @@ if (!isset($_SESSION["role_id"])) {
                     </div>
                 </div>
             </main>
-            <?php include 'includes/footer.php'?>
+            <?php include '../../includes/footer.php'?>
         </div>
     </div>
-    <script src="assets/js/jquery-3.5.1.slim.min.js"></script>
-    <script src="assets/js/bootstrap.bundle.min.js"></script>
-    <script src="assets/js/scripts.js"></script>
-    <script src="assets/js/Chart.min.js"></script>
-    <script src="assets/demo/chart-area-demo.js"></script>
-    <script src="assets/demo/chart-bar-demo.js"></script>
-    <script src="assets/js/jquery.dataTables.min.js"></script>
-    <script src="assets/js/dataTables.bootstrap4.min.js"></script>
-    <script src="assets/demo/datatables-demo.js"></script>
+    <script src="../../assets/js/jquery-3.5.1.slim.min.js"></script>
+    <script src="../../assets/js/bootstrap.bundle.min.js"></script>
+    <script src="../../assets/js/scripts.js"></script>
+    <script src="../../assets/js/Chart.min.js"></script>
+    <script src="../../assets/demo/chart-area-demo.js"></script>
+    <script src="../../assets/demo/chart-bar-demo.js"></script>
+    <script src="../../assets/js/jquery.dataTables.min.js"></script>
+    <script src="../../assets/js/dataTables.bootstrap4.min.js"></script>
+    <script src="../../assets/demo/datatables-demo.js"></script>
 </body>
 
 </html>

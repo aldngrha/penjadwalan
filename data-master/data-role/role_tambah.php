@@ -7,9 +7,6 @@ if (!isset($_SESSION["role_id"])) {
     exit();
 }
 
-$categories = $koneksi->query("SELECT * FROM categories WHERE category_id = '$_GET[category_id]'");
-$category = $categories->fetch_assoc();
-
 ?>
 
 <!DOCTYPE html>
@@ -21,59 +18,59 @@ $category = $categories->fetch_assoc();
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
     <meta name="description" content="" />
     <meta name="author" content="" />
-    <title>Sistem Penjadwalan Terpadu | Data Master - Kategori</title>
+    <title>Penjadwalan Terpadu | Data Role Pengguna</title>
     <link href="../../assets/css/styles.css" rel="stylesheet" />
     <link href="../../assets/css/dataTables.bootstrap4.min.css" rel="stylesheet" />
     <script src="../../assets/js/all.min.js"></script>
 </head>
 
 <body class="sb-nav-fixed">
-<?php include '../../includes/navbar.php'?>  
-
+    <?php include '../../includes/navbar.php'?>
     <div id="layoutSidenav">
-    <?php include '../../includes/sidebar.php';?>
+    <?php include '../../includes/sidebar.php'?>
         <div id="layoutSidenav_content" class="bg-white text-dark">
             <main>
                 <div class="container-fluid">
-                    <h1 class="mt-4">Ubah Data Kategori</h1>
+                    <h1 class="mt-4">Tambah Data Role Pengguna</h1>
                     <ol class="breadcrumb mb-4">
-                        <li class="breadcrumb-item"><a href="../../index.php" class="text-decoration-none">Dashboard</a></li>
-                        <li class="breadcrumb-item active">Data Master</li>
-                        <li class="breadcrumb-item active">Data Kategori</li>
-                        <li class="breadcrumb-item active">Ubah Data Kategori</li>
+                        <li class="breadcrumb-item"><a href="index.php" class="text-decoration-none">Dashboard</a></li>
+                        <li class="breadcrumb-item active">Data Role Pengguna</li>
+                        <li class="breadcrumb-item active">Tambah Data Role Pengguna</li>
                     </ol>
                     <div class="card mb-4">
                         <div class="card-header font-weight-bold">
-                            Data Kategori : <?php echo $category['name']; ?>
+                            Data Role Pengguna
                         </div>
                         <div class="card-body">
                             <div class="">
                                 <form class="ml-4" method="post" enctype="multipart/form-data">
                                     <div class="form-group row">
                                         <div class="col-sm-4">
-                                            <label>ID Kategori</label>
-                                            <input type="text" class="form-control" name="category_id" value="<?php echo $category['category_id']; ?>" readonly>
+                                            <label>ID Role Pengguna</label>
+                                            <input type="text" class="form-control" name="role_id" readonly>
                                         </div>
                                     </div>
                                     <div class="form-group row">
                                         <div class="col-sm-4">
-                                            <label>Kategori</label>
-                                            <input type="text" class="form-control" name="name" value="<?php echo $category['name']; ?>" required>
+                                            <label>Nama Role Pengguna</label>
+                                            <input type="password" class="form-control" name="name" required>
                                         </div>
                                     </div>
                                     <div class="form-group ">
-                                        <button class="btn btn-success font-weight-bold px-3 mr-2" name="ubah"><i class="fas fa-save"></i> Simpan</button>
-                                        <a href="kategori.php" class="btn btn-danger font-weight-bold px-3 mr-2"><i class="fas fa-arrow-circle-left"></i> Kembali</a>
+                                        <button class="btn btn-success font-weight-bold px-3 mr-2" name="save"><i class="far fa-save"></i> Simpan</button>
+                                        <a href="role.php" class="btn btn-danger font-weight-bold px-3 mr-2"><i class="fas fa-arrow-circle-left"></i> Kembali</a>
                                     </div>
                                 </form>
 
                                 <?php
-                                if (isset($_POST['ubah'])) {
-                                    $koneksi->query("UPDATE categories SET `name` ='$_POST[name]' WHERE category_id = '$_GET[category_id]'");
+                                if (isset($_POST['save'])) {
+                                        $koneksi->query("INSERT INTO `role` (`name`) 
+                                        VALUES ('$_POST[name]')");
 
-                                    echo "<script>alert('Data Kategori Telah Diubah!');</script>";
-                                    echo "<script>location='kategori.php'</script>";
-                                }
+                                        echo "<script>alert('Data Tersimpan!');</script>";
+                                        echo "<script>location='role.php'</script>";
+                                    }
+
                                 ?>
 
                             </div>
@@ -81,7 +78,7 @@ $category = $categories->fetch_assoc();
                     </div>
                 </div>
             </main>
-            <?php include '../../includes/footer.php';?>
+            <?php include '../../includes/footer.php'?>
         </div>
     </div>
     <script src="../../assets/js/jquery-3.5.1.slim.min.js"></script>

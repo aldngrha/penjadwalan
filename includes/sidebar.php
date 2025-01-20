@@ -27,7 +27,7 @@
                                 Penjadwalan
                             </a>
                             <div class="sb-sidenav-menu-heading">Admin</div>
-                            <a class="nav-link" href="/user.php">
+                            <a class="nav-link" href="/data-master/data-user/user.php">
                                 <div class="sb-nav-link-icon"><i class="fas fa-chart-area"></i></div>
                                 Data User
                             </a>

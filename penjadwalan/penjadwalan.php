@@ -18,7 +18,7 @@ if (!isset($_SESSION["role_id"])) {
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
     <meta name="description" content="" />
     <meta name="author" content="" />
-    <title>Penjadwalan Terpadu | Penjadwalan</title>
+    <title>Penjadwalan Terpadu | Data Penjadwalan</title>
     <link href="../assets/css/styles.css" rel="stylesheet" />
     <link href="../assets/css/dataTables.bootstrap4.min.css" rel="stylesheet" />
     <script src="../assets/js/all.min.js"></script>
@@ -28,95 +28,70 @@ if (!isset($_SESSION["role_id"])) {
 <?php include '../includes/navbar.php'?> 
 
     <div id="layoutSidenav">
-    <?php include '../includes/sidebar.php';?>
+    <?php include '../includes/sidebar.php'?> 
         <div id="layoutSidenav_content" class="bg-white text-dark">
             <main>
                 <div class="container-fluid">
-                    <h1 class="mt-4">Data Kasir Pembayaran</h1>
+                    <h1 class="mt-4">Data Penjadwalan</h1>
                     <ol class="breadcrumb mb-4">
-                        <li class="breadcrumb-item"><a href="../index.php" class="text-decoration-none">Dashboard</a></li>
-                        <li class="breadcrumb-item active">Data Kasir Pembayaran</li>
+                        <li class="breadcrumb-item"><a href="../../index.php" class="text-decoration-none">Dashboard</a></li>
+                        <li class="breadcrumb-item active">Data Penjadwalan</li>
                     </ol>
                     <div class="card mb-4">
                         <div class="card-header">
-                            <div class="row">
-                                <div class="col-md-9">
-                                    <i class="fas fa-table mr-1 mt-2"></i>
-                                    Tabel Kasir Pembayaran
-                                </div>
-                                <div class="col-md-3">
-                                    <a href="pembayaran_tambah.php" class="btn-success btn px-3 font-weight-bold ml-5">
-                                        <i class="fas fa-plus"></i> Tambah Pembayaran
-                                    </a>
-                                </div>
-                            </div>
+                            <i class="fas fa-table mr-1"></i>
+                            Tabel Penjadwalan
                         </div>
                         <div class="card-body">
                             <div class="table-responsive">
                                 <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
                                     <thead>
                                         <tr>
-                                            <th>Kode Bayar</th>
-                                            <th>Nama</th>
-                                            <th>Kode Resep</th>
-                                            <th>Total</th>
-                                            <th>Jumlah Bayar</th>
-                                            <th>Kembalian</th>
-                                            <th>Tanggal Bayar</th>
-                                            <th>Status</th>
+                                            <th>No</th>
+                                            <th>ID Penjadwalan</th>
+                                            <th>Kategori</th>
+                                            <th>Mata Pelajaran</th>
+                                            <th>Kelas</th>
+                                            <th>Jurusan</th>
+                                            <th>Aksi</th>
                                         </tr>
                                     </thead>
                                     <tbody>
-                                        <?php $ambil = $koneksi->query("SELECT * FROM tb_pembayaran a
-                                            JOIN tb_resep b ON a.id_resep = b.id_resep
-                                            JOIN tb_pemeriksaan c ON b.id_pemeriksaan = c.id_pemeriksaan
-                                            JOIN tb_pendaftaran d ON c.id_pendaftaran = d.id_pendaftaran
-                                            JOIN tb_pasien e ON d.id_pasien = e.id_pasien"); ?>
-                                        <?php while ($pecah = $ambil->fetch_assoc()) { ?>
+                                        <?php $nomor = 1; ?>
+                                        <?php $schedules = $koneksi->query("SELECT schedules.schedule_id, categories.name AS category_name, subjects.name AS subject_name, 
+                                                                        classes.name AS class_name, majors.name AS major_name, schedules.created_at FROM schedules
+                                                                        LEFT JOIN categories ON schedules.category_id = categories.category_id
+                                                                        LEFT JOIN subjects ON schedules.subject_id = subjects.subject_id
+                                                                        LEFT JOIN classes ON schedules.class_id = classes.class_id
+                                                                        LEFT JOIN majors ON schedules.major_id = majors.major_id"); ?>
+                                        <?php while ($schedule = $schedules->fetch_assoc()) { ?>
                                             <tr>
-                                                <td><?php echo $pecah['kd_pembayaran']; ?></td>
-                                                <td><?php echo $pecah['nama_pasien']; ?></td>
-                                                <td><?php echo $pecah['kd_resep']; ?></td>
-                                                <td><?php echo $pecah['total_pembayaran']; ?></td>
-                                                <td><?php echo $pecah['jumlah_bayar']; ?></td>
-                                                <td><?php echo $pecah['kembalian']; ?></td>
-                                                <td><?php echo $pecah['tgl_pembayaran']; ?></td>
+                                                <td><?php echo $nomor; ?></td>
+                                                <td><?php echo $schedule['schedule_id']; ?></td>
+                                                <td><?php echo $schedule['category_name']; ?></td>
+                                                <td><?php echo $schedule['subject_name']; ?></td>
+                                                <td><?php echo $schedule['class_name']; ?></td>
+                                                <td><?php echo $schedule['major_name']; ?></td>
+                                                <td><?php echo $schedule['created_at']; ?></td>
                                                 <td>
-                                                    <?php if ($pecah['status_pembayaran'] == 0) { ?>
-                                                        <span class="badge badge-danger p-2"></span>
-                                                    <?php } elseif ($pecah['status_pembayaran'] == 1) { ?>
-                                                        <span class="badge badge-success p-2">Lunas</span>
-                                                    <?php } else { ?>
-                                                        <span class="badge badge-danger p-2">
-                                                            <i class="fas fa-minus"></i>
-                                                        </span>
-                                                    <?php } ?>
+                                                    <a href="penjadwalan_hapus.php?&schedule_id=<?php echo $schedule['schedule_id']; ?>" class="btn-danger btn-sm btn">
+                                                        <i class="fas fa-trash"></i>
+                                                    </a>
                                                 </td>
                                             </tr>
+                                            <?php $nomor++; ?>
                                         <?php } ?>
                                     </tbody>
                                 </table>
                             </div>
                         </div>
                         <div class="card-footer">
-                            <form class="mb-2" action="cetak_pembayaran.php" method="POST">
-                                <div class="row">
-                                    <div class="col-md-2">
-                                        <label>Dari</label>
-                                        <input type="date" class="form-control" name="tanggal_1">
-                                    </div>
-                                    <div class="col-md-2">
-                                        <label>Sampai</label>
-                                        <input type="date" class="form-control" name="tanggal_2">
-                                    </div>  
-                                    <button type="submit" class="btn btn-primary font-weight-bold" style="height: 37px; margin-top: 33px;"> Cetak</button>
-                                </div>
-                            </form>
+                            <a href="penjadwalan_tambah.php" class="btn-success btn px-3 font-weight-bold"><i class="fas fa-plus"></i> Tambah Data Penjadwalan</a>
                         </div>
                     </div>
                 </div>
             </main>
-            <?php include '../includes/footer.php';?>
+            <?php include '../includes/footer.php'?> 
         </div>
     </div>
     <script src="../assets/js/jquery-3.5.1.slim.min.js"></script>
