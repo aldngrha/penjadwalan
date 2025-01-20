@@ -47,23 +47,17 @@ if (!isset($_SESSION["role_id"])) {
                             <div class="">
                                 <div class="form-group row">
                                     <div class="btn-block disabled mx-4">
-                                        <?php $ambil = mysqli_query($koneksi, "SELECT * FROM tb_dokter ORDER BY id_dokter DESC LIMIT 1"); ?>
-                                        <?php $data = $ambil->fetch_assoc(); ?>
-                                        <label>Data Terakhir</label>
-                                        <input type="text" class="form-control text-center" value="<?php echo $data['kd_dokter'] ?>" readonly>
+                                        <?php $majors = mysqli_query($koneksi, "SELECT * FROM majors"); ?>
+                                        <?php $major = $majors->fetch_assoc(); ?>
+                                        <label>ID Jurusan</label>
+                                        <input type="text" class="form-control text-center" name="major_id" readonly>
                                     </div>
                                 </div>
                                 <form class="ml-4" method="post" enctype="multipart/form-data">
                                     <div class="form-group row">
                                         <div class="col-sm-4">
-                                            <label>Kode Dokter</label>
-                                            <input type="text" class="form-control" name="kd_dokter" value="DOK-" required>
-                                        </div>
-                                    </div>
-                                    <div class="form-group row">
-                                        <div class="col-sm-4">
-                                            <label>Nama Dokter</label>
-                                            <input type="text" class="form-control" name="nm_dokter" value="Dr. " required>
+                                            <label>Nama Jurusan</label>
+                                            <input type="text" class="form-control" name="name" required>
                                         </div>
                                     </div>
                                     <div class="form-group ">
@@ -74,16 +68,14 @@ if (!isset($_SESSION["role_id"])) {
 
                                 <?php
                                 if (isset($_POST['save'])) {
-                                    if ($_POST['major_id'] == 0) {
-                                        echo "<script>alert('Pilih Tempat Poli dengan Benar!');</script>";
-                                    } else {
-                                        $koneksi->query("INSERT INTO majors (major_id, `name`) 
-                                        VALUES ('', '$_POST[name]')");
+                                    
+                                        $koneksi->query("INSERT INTO majors (name) 
+                                        VALUES ('$_POST[name]')");
 
                                         echo "<script>alert('Data Tersimpan!');</script>";
                                         echo "<script>location='jurusan.php'</script>";
                                     }
-                                }
+                                
 
                                 ?>
 

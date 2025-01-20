@@ -56,6 +56,18 @@ if (!isset($_SESSION["role_id"])) {
                                         <a href="kelas.php" class="btn btn-danger font-weight-bold px-3 mr-2"><i class="fas fa-arrow-circle-left"></i> Kembali</a>
                                     </div>
                                 </form>
+                                <?php
+                                if (isset($_POST['save'])) {
+                                    
+                                    $koneksi->query("INSERT INTO classes (name) 
+                                        VALUES ('$_POST[name]')");
+
+                                    echo "<script>alert('Data Tersimpan!');</script>";
+                                    echo "<script>location='kelas.php'</script>";
+                                    }
+                                
+
+                                ?>
                             </div>
                         </div>
                     </div>
