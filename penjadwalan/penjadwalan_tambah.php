@@ -57,12 +57,12 @@ if (!isset($_SESSION["role_id"])) {
                                             <select class="custom-select" name="category_id">
                                                 <option value="pilih">Pilih Kategori</option>
                                                 <?php
-                                                $schedules = $koneksi->query("SELECT * FROM schedules");
+                                                $schedules = $koneksi->query("SELECT * FROM categories");
                                                 $schedule = $schedules->fetch_assoc();
                                                 ?>
 
-                                                <?php foreach ($shedules as $schedule) : ?>
-                                                    <option value="<?php echo $schedule['schedule_id']; ?>"><?php echo $schedule['name']; ?></option>
+                                                <?php foreach ($schedules as $schedule) : ?>
+                                                    <option value="<?php echo $schedule['category_id']; ?>"><?php echo $schedule['name']; ?></option>
                                                 <?php endforeach; ?>
                                             </select>
                                         </div>
@@ -77,7 +77,7 @@ if (!isset($_SESSION["role_id"])) {
                                                 $schedule = $schedules->fetch_assoc();
                                                 ?>
 
-                                                <?php foreach ($shedules as $schedule) : ?>
+                                                <?php foreach ($schedules as $schedule) : ?>
                                                     <option value="<?php echo $schedule['subject_id']; ?>"><?php echo $schedule['name']; ?></option>
                                                 <?php endforeach; ?>
                                             </select>
@@ -93,7 +93,7 @@ if (!isset($_SESSION["role_id"])) {
                                                 $schedule = $schedules->fetch_assoc();
                                                 ?>
 
-                                                <?php foreach ($shedules as $schedule) : ?>
+                                                <?php foreach ($schedules as $schedule) : ?>
                                                     <option value="<?php echo $schedule['class_id']; ?>"><?php echo $schedule['name']; ?></option>
                                                 <?php endforeach; ?>
                                             </select>
@@ -109,7 +109,7 @@ if (!isset($_SESSION["role_id"])) {
                                                 $schedule = $schedules->fetch_assoc();
                                                 ?>
 
-                                                <?php foreach ($shedules as $schedule) : ?>
+                                                <?php foreach ($schedules as $schedule) : ?>
                                                     <option value="<?php echo $schedule['major_id']; ?>"><?php echo $schedule['name']; ?></option>
                                                 <?php endforeach; ?>
                                             </select>
@@ -135,8 +135,8 @@ if (!isset($_SESSION["role_id"])) {
                                         echo "<script>alert('Pilih jurusan dengan Benar!');</script>";
                                        
                                     }else {
-                                        $koneksi->query("INSERT INTO schedules (category_id, class_id, major_id) 
-                                        VALUES ('$_POST[category_id]', '$_POST[class_id]','$_POST[major_id]')");
+                                        $koneksi->query("INSERT INTO schedules (category_id, class_id, major_id, subject_id) 
+                                        VALUES ('$_POST[category_id]', '$_POST[class_id]','$_POST[major_id]', '$_POST[subject_id]')");
 
                                         echo "<script>alert('Data Tersimpan!');</script>";
                                         echo "<script>location='penjadwalan.php'</script>";
@@ -165,52 +165,6 @@ if (!isset($_SESSION["role_id"])) {
     <script src="../assets/js/jquery.dataTables.min.js"></script>
     <script src="../assets/js/dataTables.bootstrap4.min.js"></script>
     <script src="../assets/demo/datatables-demo.js"></script>
-
-    <script type="text/javascript">
-        $(".rsp").keyup(function() {
-            var id_resep = $("#id_resep").val()
-            var tarif_dokter = $("#tarif_dokter").val()
-            var nm_dokter = $("#nm_dokter").val()
-            var nm_poli = $("#nm_poli").val()
-            var kd_resep = $("#kd_resep").val()
-            var nama_obt = $("#nama_obt").val()
-            var harga_obt = $("#harga_obt").val()
-            var jumlah_obt = $("#jumlah_obt").val()
-            var total = $("#total").val()
-            var subharga_obt = $("#subharga_obt").val()
-
-        });
-    </script>
-
-    <script type="text/javascript">
-        function Hitung() {
-            var total = document.getElementById('total').value;
-            var jumlah_bayar = document.getElementById('jumlah_bayar').value;
-
-            var hasil = parseFloat(jumlah_bayar) - parseFloat(total);
-            if (!isNaN(hasil)) {
-                document.getElementById('kembalian').value = hasil;
-            };
-        }
-    </script>
-
-    <script type="text/javascript">
-        <?php echo $dataArray; ?>
-
-        function dataResep(id) {
-            document.getElementById('id_resep').value = dataName[id].id_resep;
-            document.getElementById('tarif_dokter').value = dataName[id].tarif_dokter;
-            document.getElementById('nm_dokter').value = dataName[id].nm_dokter;
-            document.getElementById('nm_poli').value = dataName[id].nm_poli;
-            document.getElementById('kd_resep').value = dataName[id].kd_resep;
-            document.getElementById('nama_obt').value = dataName[id].nama_obt;
-            document.getElementById('harga_obt').value = dataName[id].harga_obt;
-            document.getElementById('jumlah_obt').value = dataName[id].jumlah_obt;
-            document.getElementById('total').value = dataName[id].total;
-            document.getElementById('subharga_obt').value = dataName[id].subharga_obt;
-        };
-    </script>
-
 </body>
 
 </html>
