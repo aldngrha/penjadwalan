@@ -64,7 +64,7 @@ include "../koneksi.php";
 										$_SESSION["user"] = $user;
 										echo "<script>
           									alert('Anda berhasil Login!')
-          										document.location='../index.php'
+          										document.location='../dashboard/index.php'
           								</script>";
 									} else if ($masuk1["role_id"] == '2') {
 										$_SESSION["role_id"] = 'guru';
