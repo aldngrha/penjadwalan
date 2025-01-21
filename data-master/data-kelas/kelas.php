@@ -63,7 +63,7 @@ if (!isset($_SESSION["role_id"])) {
                                                 <td><?php echo $nomor; ?></td>
                                                 <td><?php echo $class['name']; ?></td>
                                                 <td><?php echo $class['created_at']; ?></td>
-                                                <td><?php echo $class['updated_at']; ?></td>
+                                                <td></td>
                                                 <td>
                                                     <?php if ($_SESSION["role_id"]) : ?>
                                                         <a href="kelas_view.php?&class_id=<?php echo $class['class_id']; ?>" class="btn-primary btn-sm btn">
@@ -75,7 +75,7 @@ if (!isset($_SESSION["role_id"])) {
                                                         <a href="kelas_hapus.php?&class_id=<?php echo $class['class_id']; ?>" class="btn-danger btn-sm btn">
                                                             <i class="fas fa-trash"></i>
                                                         </a>
-                                                    <?php elseif ($_SESSION["role_id"] == 'penjadwalan') : ?>
+                                                    <?php elseif ($_SESSION["role_id"] == 'siswa') : ?>
                                                         <a href="kelas_view.php?&class_id=<?php echo $class['class_id']; ?>" class="btn-primary btn-sm btn">
                                                             <i class="fas fa-eye"></i></i>
                                                         </a>

@@ -72,7 +72,7 @@ if (!isset($_SESSION["role_id"])) {
                                 <?php
                                 if (isset($_POST['save'])) {
                                     
-                                        $koneksi->query("INSERT INTO majors (name, crated_at, updated_at) 
+                                        $koneksi->query("INSERT INTO majors (name, created_at) 
                                         VALUES ('$_POST[name]', NOW() )");
 
                                         echo "<script>alert('Data Tersimpan!');</script>";
