@@ -133,8 +133,8 @@ if (!isset($_SESSION["role_id"])) {
                                        
                                     }else if ($_POST['major_id'] == "pilih") {
                                         echo "<script>alert('Pilih jurusan dengan Benar!');</script>";
-                                       
-                                    }else {
+                                    } 
+                                    else {
                                         $koneksi->query("INSERT INTO schedules (category_id, class_id, major_id, subject_id) 
                                         VALUES ('$_POST[category_id]', '$_POST[class_id]','$_POST[major_id]', '$_POST[subject_id]')");
 
