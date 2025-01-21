@@ -5,6 +5,9 @@ include '../../koneksi.php';
 if (!isset($_SESSION["role_id"])) {
     echo "<script>location='../../login/index.php'</script>";
     exit();
+} else if ($_SESSION["role_id"] == "siswa"){
+    echo "<script>location='/data-master/data-matpel/matpel.php'</script>";
+    exit();
 }
 
 ?>
@@ -65,7 +68,7 @@ if (!isset($_SESSION["role_id"])) {
                                             <select class="custom-select" name="user_id">
                                                 <option value="pilih">Pilih User</option>
                                                 <?php
-                                                $subjects = $koneksi->query("SELECT * FROM users");
+                                                $subjects = $koneksi->query("SELECT * FROM users WHERE role_id = 2");
                                                 $subject = $subjects->fetch_assoc();
                                                 ?>
 
@@ -86,8 +89,8 @@ if (!isset($_SESSION["role_id"])) {
                                     if($_POST['user_id'] === "pilih"){
                                         echo "<script>alert('Pilih User dengan BENAR!');</script>";
                                     }else{
-                                    $koneksi->query("INSERT INTO subjects (`name`, user_id) 
-                                        VALUES ('$_POST[name]','$_POST[user_id]')");
+                                    $koneksi->query("INSERT INTO subjects (`name`, user_id, created_at) 
+                                        VALUES ('$_POST[name]','$_POST[user_id]', NOW() )");
 
                                     echo "<script>alert('Data Tersimpan!');</script>";
                                     echo "<script>location='matpel.php'</script>";

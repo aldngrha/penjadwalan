@@ -55,13 +55,14 @@ if (!isset($_SESSION["role_id"])) {
                                             <th>Photo</th>
                                             <th>Role Pengguna</th>
                                             <th>created_at</th>
+                                            <th>updated_at</th>
                                             <th>Aksi</th>
                                         </tr>
                                     </thead>
                                     <tbody>
                                         <?php $nomor = 1; ?>
-                                        <?php $users = $koneksi->query("SELECT users.user_id, users.username, users.password, users.email, users.photo, users.created_at, role.name
-                                                                        FROM users
+                                        <?php $users = $koneksi->query("SELECT users.user_id, users.username, users.password, users.email, users.photo, users.created_at,
+                                                                        users.updated_at, role.name FROM users
                                                                         LEFT JOIN role ON users.role_id = role.role_id"); ?>
                                         <?php while ($user = $users->fetch_assoc()) { ?>
                                             <tr>
@@ -73,7 +74,11 @@ if (!isset($_SESSION["role_id"])) {
                                                 <td><?php echo $user['photo']; ?></td>
                                                 <td><?php echo $user['name']; ?></td>
                                                 <td><?php echo $user['created_at']; ?></td>
+                                                <td><?php echo $user['updated_at']; ?></td>
                                                 <td>
+                                                     <a href="user_ubah.php?&user_id=<?php echo $user['user_id']; ?>" class="btn-warning btn-sm btn">
+                                                            <i class="fas fa-edit"></i>
+                                                     </a>
                                                     <a href="user_hapus.php?&user_id=<?php echo $user['user_id']; ?>" class="btn-danger btn-sm btn">
                                                         <i class="fas fa-trash"></i>
                                                     </a>

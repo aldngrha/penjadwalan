@@ -5,6 +5,9 @@ include '../../koneksi.php';
 if (!isset($_SESSION["role_id"])) {
     echo "<script>location='../../login/index.php'</script>";
     exit();
+} else if ($_SESSION["role_id"] !== "admin"){
+    echo "<script>location='/data-master/data-user/user.php'</script>";
+    exit();
 }
 
 $users = $koneksi->query("SELECT * FROM users WHERE user_id = '$_GET[user_id]'");
