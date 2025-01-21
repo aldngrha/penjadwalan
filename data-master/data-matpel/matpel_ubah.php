@@ -5,6 +5,9 @@ include '../../koneksi.php';
 if (!isset($_SESSION["role_id"])) {
     echo "<script>location='../../login/index.php'</script>";
     exit();
+} else if ($_SESSION["role_id"] == "siswa"){
+    echo "<script>location='/data-master/data-matpel/matpel.php'</script>";
+    exit();
 }
 
 $subjects = $koneksi->query("SELECT * FROM subjects WHERE subject_id='$_GET[subject_id]'");
@@ -53,7 +56,7 @@ $subject = $subjects->fetch_assoc();
                                     <div class="form-group row">
                                         <div class="col-sm-4">
                                             <label>ID Mata Pelajaran</label>
-                                            <input type="number" class="form-control" name="class_id" value="<?php echo $subject['subject_id'] ?>" readonly>
+                                            <input type="number" class="form-control" name="subject_id" value="<?php echo $subject['subject_id'] ?>" readonly>
                                         </div>
                                     </div>
                                     <div class="form-group row">
@@ -64,11 +67,11 @@ $subject = $subjects->fetch_assoc();
                                     </div>
                                     <div class="form-group row">
                                         <div class="col-sm-4">
-                                            <label>ID User</label>
+                                            <label>Guru</label>
                                             <select class="custom-select" name="user_id" value="<?php echo $subject['user_id']?>">
-                                                <option value="pilih">Pilih User</option>
+                                                <option value="pilih">Pilih Guru</option>
                                                 <?php
-                                                $subjects = $koneksi->query("SELECT * FROM users");
+                                                $subjects = $koneksi->query("SELECT * FROM users WHERE role_id = 2");
                                                 $subject = $subjects->fetch_assoc();
                                                 ?>
 

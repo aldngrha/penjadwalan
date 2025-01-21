@@ -5,6 +5,9 @@ include '../../koneksi.php';
 if (!isset($_SESSION["role_id"])) {
     echo "<script>location='../../login/index.php'</script>";
     exit();
+} else if ($_SESSION["role_id"] == "siswa"){
+    echo "<script>location='/data-master/data-kategori/kategori.php'</script>";
+    exit();
 }
 
 ?>
@@ -66,8 +69,8 @@ if (!isset($_SESSION["role_id"])) {
 
                                 <?php
                                 if (isset($_POST['save'])) {
-                                        $koneksi->query("INSERT INTO categories (`name`) 
-                                        VALUES ('$_POST[name]')");
+                                        $koneksi->query("INSERT INTO categories (`name`, created_at) 
+                                        VALUES ('$_POST[name]', NOW() )");
 
                                         echo "<script>alert('Data Tersimpan!');</script>";
                                         echo "<script>location='kategori.php'</script>";

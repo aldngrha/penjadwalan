@@ -5,7 +5,7 @@ include '../koneksi.php';
 if (!isset($_SESSION["role_id"])) {
     echo "<script>location='../login/index.php'</script>";
     exit();
-}else if ($_SESSION["role_id"]== "siswa"){
+}else if ($_SESSION["role_id"] !== "admin"){
     echo "<script>location='/index.php'</script>";
     exit();
 }

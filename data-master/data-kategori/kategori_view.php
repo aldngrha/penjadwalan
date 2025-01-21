@@ -5,6 +5,9 @@ include '../../koneksi.php';
 if (!isset($_SESSION["role_id"])) {
     echo "<script>location='../../login/index.php'</script>";
     exit();
+} else if ($_SESSION["role_id"] == "siswa"){
+    echo "<script>location='/data-master/data-kategori/kategori.php'</script>";
+    exit();
 }
 
 $categories = $koneksi->query("SELECT * FROM categories WHERE category_id = '$_GET[category_id]'");
