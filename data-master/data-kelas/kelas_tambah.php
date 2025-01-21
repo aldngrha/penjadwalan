@@ -5,7 +5,11 @@ include '../../koneksi.php';
 if (!isset($_SESSION["role_id"])) {
     echo "<script>location='../../login/index.php'</script>";
     exit();
+}else if ($_SESSION["role_id"]!= "admin"){
+    echo "<script>location='/data-master/data-kelas/kelas.php'</script>";
+    exit();
 }
+
 
 ?>
 
@@ -59,8 +63,8 @@ if (!isset($_SESSION["role_id"])) {
                                 <?php
                                 if (isset($_POST['save'])) {
                                     
-                                    $koneksi->query("INSERT INTO classes (name) 
-                                        VALUES ('$_POST[name]')");
+                                    $koneksi->query("INSERT INTO classes (name, crated_at, updated_at) 
+                                        VALUES ('$_POST[name]', NOW()");
 
                                     echo "<script>alert('Data Tersimpan!');</script>";
                                     echo "<script>location='kelas.php'</script>";

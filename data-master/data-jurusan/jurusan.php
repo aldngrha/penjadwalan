@@ -51,6 +51,8 @@ if (!isset($_SESSION["role_id"])) {
                                             <th>No.</th>
                                             <th>ID Jurusan</th>
                                             <th>Nama Jurusan</th>
+                                            <th>created_at</th>
+                                            <th>updated_at</th>
                                             <th>Aksi</th>
                                         </tr>
                                     </thead>
@@ -62,6 +64,8 @@ if (!isset($_SESSION["role_id"])) {
                                                 <td><?php echo $nomor;?></td>
                                                 <td><?php echo $major['major_id'];?></td>
                                                 <td><?php echo $major['name']; ?></td>
+                                                <td><?php echo $major['created_at']; ?></td>
+                                                <td><?php echo $major['updated_at']; ?></td>
                                                 <td>
                                                     <a href="jurusan_view.php?&major_id=<?php echo $major['major_id']; ?>" class="btn-primary btn-sm btn">
                                                         <i class="fas fa-eye"></i></i>
