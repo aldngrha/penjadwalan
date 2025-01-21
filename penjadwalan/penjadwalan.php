@@ -54,13 +54,14 @@ if (!isset($_SESSION["role_id"])) {
                                             <th>Kelas</th>
                                             <th>Jurusan</th>
                                             <th>created_at</th>
+                                            <th>updated_at</th>
                                             <th>Aksi</th>
                                         </tr>
                                     </thead>
                                     <tbody>
                                         <?php $nomor = 1; ?>
                                         <?php $schedules = $koneksi->query("SELECT schedules.schedule_id, categories.name AS category_name, subjects.name AS subject_name, 
-                                                                        classes.name AS class_name, majors.name AS major_name, schedules.created_at FROM schedules
+                                                                        classes.name AS class_name, majors.name AS major_name, schedules.created_at, schedules.updated_at FROM schedules
                                                                         LEFT JOIN categories ON schedules.category_id = categories.category_id
                                                                         LEFT JOIN subjects ON schedules.subject_id = subjects.subject_id
                                                                         LEFT JOIN classes ON schedules.class_id = classes.class_id
@@ -74,10 +75,17 @@ if (!isset($_SESSION["role_id"])) {
                                                 <td><?php echo $schedule['class_name']; ?></td>
                                                 <td><?php echo $schedule['major_name']; ?></td>
                                                 <td><?php echo $schedule['created_at']; ?></td>
+                                                <td><?php echo $schedule['updated_at']; ?></td>
                                                 <td>
-                                                    <a href="penjadwalan_hapus.php?&schedule_id=<?php echo $schedule['schedule_id']; ?>" class="btn-danger btn-sm btn">
-                                                        <i class="fas fa-trash"></i>
-                                                    </a>
+                                                <a href="penjadwlan_view.php?&schedule_id=<?php echo $schedule['schedule_id']; ?>" class="btn-primary btn-sm btn">
+                                                            <i class="fas fa-eye"></i></i>
+                                                        </a>
+                                                        <a href="penjadwalan_ubah.php?&schedule_id=<?php echo $schedule['schedule_id']; ?>" class="btn-warning btn-sm btn">
+                                                            <i class="fas fa-edit"></i>
+                                                        </a>
+                                                        <a href="penjadwlan_hapus.php?&schedule_id=<?php echo $schedule['schedule_id']; ?>" class="btn-danger btn-sm btn">
+                                                            <i class="fas fa-trash"></i>
+                                                        </a>
                                                 </td>
                                             </tr>
                                             <?php $nomor++; ?>

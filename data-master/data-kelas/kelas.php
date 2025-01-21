@@ -50,6 +50,8 @@ if (!isset($_SESSION["role_id"])) {
                                         <tr>
                                             <th>No</th>
                                             <th>Kelas</th>
+                                            <th>created_at</th>
+                                            <th>updated_at</th>
                                             <th>Aksi</th>
                                         </tr>
                                     </thead>
@@ -60,6 +62,8 @@ if (!isset($_SESSION["role_id"])) {
                                             <tr>
                                                 <td><?php echo $nomor; ?></td>
                                                 <td><?php echo $class['name']; ?></td>
+                                                <td><?php echo $class['created_at']; ?></td>
+                                                <td><?php echo $class['updated_at']; ?></td>
                                                 <td>
                                                     <?php if ($_SESSION["role_id"]) : ?>
                                                         <a href="kelas_view.php?&class_id=<?php echo $class['class_id']; ?>" class="btn-primary btn-sm btn">

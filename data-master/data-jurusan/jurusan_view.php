@@ -5,7 +5,11 @@ include '../../koneksi.php';
 if (!isset($_SESSION["role_id"])) {
     echo "<script>location='../../login/index.php'</script>";
     exit();
+}else if ($_SESSION["role_id"] == "siswa"){
+    echo "<script>location='/data-master/data-jurusan/jurusan.php'</script>";
+    exit();
 }
+
 
 $majors = $koneksi->query("SELECT * FROM majors WHERE major_id = '$_GET[major_id]'");
 $major = $majors->fetch_assoc();
