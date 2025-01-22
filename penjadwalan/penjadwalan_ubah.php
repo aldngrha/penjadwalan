@@ -126,17 +126,13 @@ $schedule = $schedules->fetch_assoc();
                                     </div>
                                 </form>
                                 <?php
-                             if (isset($_POST['ubah'])) {
-                                $schedule_id = $koneksi->real_escape_string($_POST['schedule_id']);
-                                $category_id = $koneksi->real_escape_string($_GET['category_id']);
-                                $subject_id = $koneksi->real_escape_string($_GET['subject_id']);
-                                $class_id = $koneksi->real_escape_string($_GET['class_id']);
-                                $major_id = $koneksi->real_escape_string($_GET['major_id']);
-                            
-                                $koneksi->query("UPDATE schedules SET category_id = '$category_id', subject_id = '$subject_id', class_id = '$class_id', major_id = '$major_id' WHERE schedule_id = '$schedule_id'");
-                                echo "<script>alert('Data Jadwal Telah Diubah!');</script>";
-                                echo "<script>location='penjadwalan.php'</script>";
-                            }
+                                 if (isset($_POST['ubah'])) {
+                                      $koneksi->query("UPDATE schedules SET category_id ='$_POST[category_id]', major_id ='$_POST[major_id]', subject_id ='$_POST[subject_id]', class_id ='$_POST[class_id]',
+                                       updated_at = NOW() WHERE schedule_id = '$_GET[schedule_id]'");
+                                          
+                                      echo "<script>alert('Data Penjadwalan Telah Diubah!');</script>";
+                                      echo "<script>location='penjadwalan.php'</script>";
+                                            }
                             
                                 ?>
                             </div>

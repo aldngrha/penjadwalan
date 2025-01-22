@@ -63,6 +63,7 @@ if (!isset($_SESSION["role_id"])) {
                                                 <td><?php echo $nomor; ?></td>
                                                 <td><?php echo $class['name']; ?></td>
                                                 <td><?php echo $class['created_at']; ?></td>
+                                                <td><?php echo $class['updated_at']; ?></td>
                                                 <td></td>
                                                 <td>
                                                     <?php if ($_SESSION["role_id"]) : ?>

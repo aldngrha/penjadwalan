@@ -52,6 +52,7 @@ if (!isset($_SESSION["role_id"])) {
                                             <th>ID Kategori</th>
                                             <th>Nama Kategori</th>
                                             <th>created_at</th>
+                                            <th>updated_at</th>
                                             <th>Aksi</th>
                                         </tr>
                                     </thead>
@@ -64,6 +65,7 @@ if (!isset($_SESSION["role_id"])) {
                                                 <td><?php echo $category['category_id']; ?></td>
                                                 <td><?php echo $category['name']; ?></td>
                                                 <td><?php echo $category['created_at']; ?></td>
+                                                <td><?php echo $category['updated_at']; ?></td>
                                                 <td>
                                                     <a href="kategori_view.php?&category_id=<?php echo $category['category_id']; ?>" class="btn-primary btn-sm btn">
                                                         <i class="fas fa-eye"></i></i>
