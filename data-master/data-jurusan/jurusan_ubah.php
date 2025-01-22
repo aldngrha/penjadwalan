@@ -73,7 +73,7 @@ $major = $majors->fetch_assoc();
 
                                 <?php
                                 if (isset($_POST['ubah'])) {
-                                    $koneksi->query("UPDATE majors SET `name` ='$_POST[name]' WHERE major_id = '$_GET[major_id]'");
+                                    $koneksi->query("UPDATE majors SET `name` ='$_POST[name]', updated_at = NOW()  WHERE major_id = '$_GET[major_id]'");
                                     echo "<script>alert('Data Jurusan Telah Diubah!');</script>";
                                     echo "<script>location='jurusan.php'</script>";
                                 }

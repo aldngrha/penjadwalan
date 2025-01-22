@@ -92,7 +92,7 @@ $subject = $subjects->fetch_assoc();
                                 $user_id = $koneksi->real_escape_string($_POST['user_id']);
                                 $subject_id = $koneksi->real_escape_string($_GET['subject_id']);
                             
-                                $koneksi->query("UPDATE subjects SET name = '$name', user_id = '$user_id' WHERE subject_id = '$subject_id'");
+                                $koneksi->query("UPDATE subjects SET name = '$name', user_id = '$user_id', updated_at = NOW() WHERE subject_id = '$subject_id'");
                                 echo "<script>alert('Data Mata Pelajaran Telah Diubah!');</script>";
                                 echo "<script>location='matpel.php'</script>";
                             }
