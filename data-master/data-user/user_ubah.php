@@ -114,7 +114,7 @@ $user = $users->fetch_assoc();
                                 $user_id = $koneksi->real_escape_string($_GET['user_id']);
                             
                                 $koneksi->query("UPDATE users SET username = '$username', password = '$password', email = '$email', photo = '$photo',
-                                                role_id = '$role_id' WHERE user_id = '$user_id'");
+                                                role_id = '$role_id', updated_at = NOW() WHERE user_id = '$user_id'");
                                 echo "<script>alert('Data User Telah Diubah!');</script>";
                                 echo "<script>location='user.php'</script>";
                             }

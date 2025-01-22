@@ -73,7 +73,7 @@ $class = $classes->fetch_assoc();
                                 </form>
                                 <?php
                                 if (isset($_POST['ubah'])) {
-                                    $koneksi->query("UPDATE classes SET name ='$_POST[name]' WHERE class_id = '$_GET[class_id]'");
+                                    $koneksi->query("UPDATE classes SET name ='$_POST[name]', updated_at = NOW() WHERE class_id = '$_GET[class_id]'");
                                     echo "<script>alert('Data Kelas Telah Diubah!');</script>";
                                     echo "<script>location='kelas.php'</script>";
                                 }

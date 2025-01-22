@@ -72,7 +72,7 @@ $category = $categories->fetch_assoc();
 
                                 <?php
                                 if (isset($_POST['ubah'])) {
-                                    $koneksi->query("UPDATE categories SET `name` ='$_POST[name]' WHERE category_id = '$_GET[category_id]'");
+                                    $koneksi->query("UPDATE categories SET `name` ='$_POST[name]', updated_at = NOW() WHERE category_id = '$_GET[category_id]'");
 
                                     echo "<script>alert('Data Kategori Telah Diubah!');</script>";
                                     echo "<script>location='kategori.php'</script>";

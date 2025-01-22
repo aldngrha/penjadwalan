@@ -135,7 +135,7 @@ if (!isset($_SESSION["role_id"])) {
                                         echo "<script>alert('Pilih jurusan dengan Benar!');</script>";
                                     } 
                                     else {
-                                        $koneksi->query("INSERT INTO schedules (category_id, class_id, major_id, subject_id, created_at, updated_at) 
+                                        $koneksi->query("INSERT INTO schedules (category_id, class_id, major_id, subject_id, created_at) 
                                         VALUES ('$_POST[category_id]', '$_POST[class_id]','$_POST[major_id]', '$_POST[subject_id]', NOW() )");
 
                                         echo "<script>alert('Data Tersimpan!');</script>";
