@@ -54,13 +54,14 @@ if (!isset($_SESSION["role_id"])) {
                                             <th>Mata Pelajaran</th>
                                             <th>Guru</th>
                                             <th>created_at</th>
+                                            <th>updated_at</th>
                                             <th>Aksi</th>
                                         </tr>
                                     </thead>
                                     <tbody>
                                         <?php $nomor = 1; ?>
                                         <?php $subjects = $koneksi->query("SELECT subjects.subject_id, subjects.name, 
-                                        users.username, subjects.created_at FROM subjects
+                                        users.username, subjects.created_at, subjects.updated_at FROM subjects
                                         LEFT JOIN users ON subjects.user_id = users.user_id"); ?>
                                         <?php while ($subject = $subjects->fetch_assoc()) { ?>
                                             <tr>
@@ -68,6 +69,7 @@ if (!isset($_SESSION["role_id"])) {
                                                 <td><?php echo $subject['name']; ?></td>
                                                 <td><?php echo $subject['username']; ?></td>
                                                 <td><?php echo $subject['created_at']; ?></td>
+                                                <td><?php echo $subject['updated_at']; ?></td>
                                                 <td>
                                                         <a href="matpel_ubah.php?&subject_id=<?php echo $subject['subject_id']; ?>" class="btn-warning btn-sm btn">
                                                             <i class="fas fa-edit"></i>
