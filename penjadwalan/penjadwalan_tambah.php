@@ -85,6 +85,18 @@ if (!isset($_SESSION["role_id"])) {
                                     </div>
                                     <div class="form-group row">
                                         <div class="col-sm-4">
+                                            <label>Jam Mulai</label>
+                                            <input type="time" class="form-control" name="start_time">
+                                        </div>
+                                    </div>
+                                    <div class="form-group row">
+                                        <div class="col-sm-4">
+                                            <label>Jam Selesai</label>
+                                            <input type="time" class="form-control" name="end_time">
+                                        </div>
+                                    </div>
+                                    <div class="form-group row">
+                                        <div class="col-sm-4">
                                             <label>Kelas</label>
                                             <select class="custom-select" name="class_id">
                                                 <option value="pilih">Pilih Kelas</option>
@@ -135,8 +147,8 @@ if (!isset($_SESSION["role_id"])) {
                                         echo "<script>alert('Pilih jurusan dengan Benar!');</script>";
                                     } 
                                     else {
-                                        $koneksi->query("INSERT INTO schedules (category_id, class_id, major_id, subject_id, created_at) 
-                                        VALUES ('$_POST[category_id]', '$_POST[class_id]','$_POST[major_id]', '$_POST[subject_id]', NOW() )");
+                                        $koneksi->query("INSERT INTO schedules (category_id, class_id, major_id, subject_id, start_time, end_time, created_at) 
+                                        VALUES ('$_POST[category_id]', '$_POST[class_id]','$_POST[major_id]','$_POST[start_time]', '$_POST[end_time]', '$_POST[subject_id]', NOW() )");
 
                                         echo "<script>alert('Data Tersimpan!');</script>";
                                         echo "<script>location='penjadwalan.php'</script>";
