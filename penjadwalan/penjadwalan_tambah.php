@@ -148,7 +148,7 @@ if (!isset($_SESSION["role_id"])) {
                                     } 
                                     else {
                                         $koneksi->query("INSERT INTO schedules (category_id, class_id, major_id, subject_id, start_time, end_time, created_at) 
-                                        VALUES ('$_POST[category_id]', '$_POST[class_id]','$_POST[major_id]','$_POST[start_time]', '$_POST[end_time]', '$_POST[subject_id]', NOW() )");
+                                        VALUES ('$_POST[category_id]', '$_POST[class_id]','$_POST[major_id]','$_POST[subject_id]', '$_POST[start_time]', '$_POST[end_time]', NOW() )");
 
                                         echo "<script>alert('Data Tersimpan!');</script>";
                                         echo "<script>location='penjadwalan.php'</script>";
