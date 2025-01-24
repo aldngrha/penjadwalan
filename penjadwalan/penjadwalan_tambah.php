@@ -27,7 +27,7 @@ if (!isset($_SESSION["role_id"])) {
 <body class="sb-nav-fixed">
 <?php include '../includes/navbar.php'?> 
 
-    <div id="layoutSidenav">
+<div id="layoutSidenav">
     <?php include '../includes/sidebar.php';?>
         <div id="layoutSidenav_content" class="bg-white text-dark">
             <main>
@@ -53,36 +53,102 @@ if (!isset($_SESSION["role_id"])) {
                                     </div>
                                     <div class="form-group row">
                                         <div class="col-sm-4">
-                                            <label>Kategori</label>
-                                            <select class="custom-select" name="category_id">
-                                                <option value="pilih">Pilih Kategori</option>
-                                                <?php
-                                                $schedules = $koneksi->query("SELECT * FROM categories");
-                                                $schedule = $schedules->fetch_assoc();
+                                            <label>Hari</label>
+                                            <select class="custom-select" name="day">
+                                                <option value="pilih">Pilih Hari</option>
+                                                <?php 
+                                                $days = ["Senin", "Selasa", "Rabu", "Kamis", "Jumat"];
+                                                foreach ($days as $day) {
+                                                    echo "<option value='" . strtolower($day) . "'>$day</option>";
+                                                }
                                                 ?>
-
-                                                <?php foreach ($schedules as $schedule) : ?>
-                                                    <option value="<?php echo $schedule['category_id']; ?>"><?php echo $schedule['name']; ?></option>
-                                                <?php endforeach; ?>
                                             </select>
                                         </div>
                                     </div>
-                                    <div class="form-group row">
+                                    
+                                    <div class="form-group row" id="upacara-section">
                                         <div class="col-sm-4">
-                                            <label>Mata Pelajaran</label>
-                                            <select class="custom-select" name="subject_id">
-                                                <option value="pilih">Pilih Mata Pelajaran</option>
-                                                <?php
-                                                $schedules = $koneksi->query("SELECT * FROM subjects");
-                                                $schedule = $schedules->fetch_assoc();
-                                                ?>
-
-                                                <?php foreach ($schedules as $schedule) : ?>
-                                                    <option value="<?php echo $schedule['subject_id']; ?>"><?php echo $schedule['name']; ?></option>
-                                                <?php endforeach; ?>
-                                            </select>
+                                            <label>Apakah jadwal upacara?</label>
+                                            <div>
+                                                <input type="radio" name="upacara" value="1" id="ya" onclick="toggleSectionRadio('istirahat-section', true)" />
+                                                <label for="ya">Ya</label>
+                                            </div>
+                                            <div>
+                                                <input type="radio" name="upacara" value="0" id="tidak" onclick="toggleSectionRadio('istirahat-section', false)" />
+                                                <label for="tidak">Tidak</label>
+                                            </div>
                                         </div>
                                     </div>
+
+                                    <div class="form-group row" id="istirahat-section">
+                                        <div class="col-sm-4">
+                                            <label>Apakah jadwal istirahat?</label>
+                                            <div>
+                                                <input type="radio" name="istirahat" value="1" id="istirahat-ya" onclick="toggleSectionRadio('upacara-section', true)" />
+                                                <label for="istirahat-ya">Ya</label>
+                                            </div>
+                                            <div>
+                                                <input type="radio" name="istirahat" value="0" id="istirahat-tidak" onclick="toggleSectionRadio('upacara-section', false)" />
+                                                <label for="istirahat-tidak">Tidak</label>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <div id="main-form">
+                                        <div class="form-group row">
+                                            <div class="col-sm-4">
+                                                <label>Kategori</label>
+                                                <select class="custom-select" name="category_id">
+                                                    <option value="pilih">Pilih Kategori</option>
+                                                    <?php
+                                                    $schedules = $koneksi->query("SELECT * FROM categories");
+                                                    foreach ($schedules as $schedule) : ?>
+                                                        <option value="<?php echo $schedule['category_id']; ?>"><?php echo $schedule['name']; ?></option>
+                                                    <?php endforeach; ?>
+                                                </select>
+                                            </div>
+                                        </div>
+                                        <div class="form-group row">
+                                            <div class="col-sm-4">
+                                                <label>Mata Pelajaran</label>
+                                                <select class="custom-select" name="subject_id">
+                                                    <option value="pilih">Pilih Mata Pelajaran</option>
+                                                    <?php
+                                                    $subjects = $koneksi->query("SELECT * FROM subjects");
+                                                    foreach ($subjects as $subject) : ?>
+                                                        <option value="<?php echo $subject['subject_id']; ?>"><?php echo $subject['name']; ?></option>
+                                                    <?php endforeach; ?>
+                                                </select>
+                                            </div>
+                                        </div>
+                                        <div class="form-group row">
+                                            <div class="col-sm-4">
+                                                <label>Kelas</label>
+                                                <select class="custom-select" name="class_id">
+                                                    <option value="pilih">Pilih Kelas</option>
+                                                    <?php
+                                                    $classes = $koneksi->query("SELECT * FROM classes");
+                                                    foreach ($classes as $class) : ?>
+                                                        <option value="<?php echo $class['class_id']; ?>"><?php echo $class['name']; ?></option>
+                                                    <?php endforeach; ?>
+                                                </select>
+                                            </div>
+                                        </div>
+                                        <div class="form-group row">
+                                            <div class="col-sm-4">
+                                                <label>Jurusan</label>
+                                                <select class="custom-select" name="major_id">
+                                                    <option value="pilih">Pilih Jurusan</option>
+                                                    <?php
+                                                    $majors = $koneksi->query("SELECT * FROM majors");
+                                                    foreach ($majors as $major) : ?>
+                                                        <option value="<?php echo $major['major_id']; ?>"><?php echo $major['name']; ?></option>
+                                                    <?php endforeach; ?>
+                                                </select>
+                                            </div>
+                                        </div>
+                                    </div>
+
                                     <div class="form-group row">
                                         <div class="col-sm-4">
                                             <label>Jam Mulai</label>
@@ -95,38 +161,6 @@ if (!isset($_SESSION["role_id"])) {
                                             <input type="time" class="form-control" name="end_time">
                                         </div>
                                     </div>
-                                    <div class="form-group row">
-                                        <div class="col-sm-4">
-                                            <label>Kelas</label>
-                                            <select class="custom-select" name="class_id">
-                                                <option value="pilih">Pilih Kelas</option>
-                                                <?php
-                                                $schedules = $koneksi->query("SELECT * FROM classes");
-                                                $schedule = $schedules->fetch_assoc();
-                                                ?>
-
-                                                <?php foreach ($schedules as $schedule) : ?>
-                                                    <option value="<?php echo $schedule['class_id']; ?>"><?php echo $schedule['name']; ?></option>
-                                                <?php endforeach; ?>
-                                            </select>
-                                        </div>
-                                    </div>
-                                    <div class="form-group row">
-                                        <div class="col-sm-4">
-                                            <label>Jurusan</label>
-                                            <select class="custom-select" name="major_id">
-                                                <option value="pilih">Pilih Jurusan</option>
-                                                <?php
-                                                $schedules = $koneksi->query("SELECT * FROM majors");
-                                                $schedule = $schedules->fetch_assoc();
-                                                ?>
-
-                                                <?php foreach ($schedules as $schedule) : ?>
-                                                    <option value="<?php echo $schedule['major_id']; ?>"><?php echo $schedule['name']; ?></option>
-                                                <?php endforeach; ?>
-                                            </select>
-                                        </div>
-                                    </div>
                                     <div class="form-group ">
                                         <button class="btn btn-success font-weight-bold px-3 mr-2" name="save"><i class="far fa-save"></i> Simpan</button>
                                         <a href="penjadwalan.php" class="btn btn-danger font-weight-bold px-3 mr-2"><i class="fas fa-arrow-circle-left"></i> Kembali</a>
@@ -135,20 +169,32 @@ if (!isset($_SESSION["role_id"])) {
 
                                 <?php
                                 if (isset($_POST['save'])) {
-                                    if ($_POST['category_id'] == "pilih") {
+                                    if ($_POST['category_id'] == "pilih" && $_POST['upacara'] == "pilih") {
                                         echo "<script>alert('Pilih kategori dengan Benar!');</script>";
-                                    }else if ($_POST['subject_id'] == "pilih") {
+                                    } else if ($_POST['subject_id'] == "pilih" && $_POST['upacara'] == "pilih") {
                                         echo "<script>alert('Pilih mata pelajaran dengan Benar!');</script>";
                                        
-                                    } else if ($_POST['class_id'] == "pilih") {
+                                    } else if ($_POST['class_id'] == "pilih" && $_POST['upacara'] == "pilih") {
                                         echo "<script>alert('Pilih kelas dengan Benar!');</script>";
                                        
-                                    }else if ($_POST['major_id'] == "pilih") {
+                                    } else if ($_POST['major_id'] == "pilih" && $_POST['upacara'] == "pilih") {
                                         echo "<script>alert('Pilih jurusan dengan Benar!');</script>";
-                                    } 
+                                    } else if($_POST['istirahat'] == "1") {
+                                        $koneksi->query("INSERT INTO schedules (hari, rest, start_time, end_time, created_at) 
+                                        VALUES ('$_POST[day]', '$_POST[istirahat]', '$_POST[start_time]', '$_POST[end_time]', NOW() )");
+
+                                        echo "<script>alert('Data Tersimpan!');</script>";
+                                        echo "<script>location='penjadwalan.php'</script>";
+                                    } else if($_POST['upacara'] == "1") {
+                                        $koneksi->query("INSERT INTO schedules (hari, ceremony, start_time, end_time, created_at) 
+                                        VALUES ('$_POST[day]', '$_POST[upacara]', '$_POST[start_time]', '$_POST[end_time]', NOW() )");
+
+                                        echo "<script>alert('Data Tersimpan!');</script>";
+                                        echo "<script>location='penjadwalan.php'</script>";
+                                    }
                                     else {
-                                        $koneksi->query("INSERT INTO schedules (category_id, class_id, major_id, subject_id, start_time, end_time, created_at) 
-                                        VALUES ('$_POST[category_id]', '$_POST[class_id]','$_POST[major_id]','$_POST[subject_id]', '$_POST[start_time]', '$_POST[end_time]', NOW() )");
+                                        $koneksi->query("INSERT INTO schedules (category_id, hari, rest, ceremony, class_id, major_id, subject_id, start_time, end_time, created_at) 
+                                        VALUES ('$_POST[category_id]', '$_POST[day]', '$_POST[istirahat]', '$_POST[upacara]', '$_POST[class_id]','$_POST[major_id]','$_POST[subject_id]', '$_POST[start_time]', '$_POST[end_time]', NOW() )");
 
                                         echo "<script>alert('Data Tersimpan!');</script>";
                                         echo "<script>location='penjadwalan.php'</script>";
@@ -177,6 +223,25 @@ if (!isset($_SESSION["role_id"])) {
     <script src="../assets/js/jquery.dataTables.min.js"></script>
     <script src="../assets/js/dataTables.bootstrap4.min.js"></script>
     <script src="../assets/demo/datatables-demo.js"></script>
+    <script>
+
+        function toggleSectionRadio(sectionId, show) {
+            const section = document.getElementById(sectionId);
+            if (!show) {
+                section.style.display = 'block';
+            } else {
+                section.style.display = 'none';
+            }
+
+            const mainForm = document.getElementById('main-form');
+            if (show) {
+                mainForm.style.display = 'none'; // Sembunyikan semua form
+            } else {
+                mainForm.style.display = 'block'; // Tampilkan kembali form
+            }
+    }
+    
+    </script>
 </body>
 
 </html>
