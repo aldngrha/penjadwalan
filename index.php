@@ -48,7 +48,7 @@ if (!isset($_SESSION["role_id"])) {
     <tr>
         <td rowspan="14" class="text-center align-middle">Senin</td>
         <td>07.10 - 08.00</td>
-        <td colspan="7" class="bg-success text-center">UPACARA HARI SENIN </td>
+        <td colspan="7" class="bg-success text-center text-light">UPACARA HARI SENIN</td>
     </tr>
     <tr>
         <td>08.00 - 08.45</td>
@@ -70,7 +70,7 @@ if (!isset($_SESSION["role_id"])) {
     </tr>
     <tr>
         <td>09.30 - 09.45</td>
-        <td colspan="7" class="bg-success text-center">ISTIRAHAT 1 </td>
+        <td colspan="7" class="bg-success text-center text-light">ISTIRAHAT 1</td>
     </tr> 
     <tr>
         <td>09.45 - 10.30</td>
@@ -101,21 +101,149 @@ if (!isset($_SESSION["role_id"])) {
     </tr>
     <tr>
         <td>12.00 - 13.00</td>
-        <td colspan="7" class="bg-success text-center">SHOLAT DZUHUR &   ISTIRAHAT 2 </td>
+        <td colspan="7" class="bg-success text-center text-light">SHOLAT DZUHUR & ISTIRAHAT 2</td>
     </tr>    
     <tr>
-        <td>. - .</td>
+        <td>13.00 - 13.45</td>
+        <td>Bahasa Indonesia</td>
         <td>Dasar Teknologi Farmasi</td>
-        <td>Pendidikan Agama</td>
-        <td>Pendidikan Agama</td>
+        <td>Komputer dan Jaringan</td>
+        <td>Produk Kreatif & Kewirausahaan</td>
+        <td>Pelayanan Farmasi</td>
+        <td class = "bg-secondary"></td>
+    </tr>
+    <tr>
+        <td>13.45 - 14.30</td>
+        <td>Bahasa Indonesia</td>
+        <td>Dasar Teknologi Farmasi</td>
+        <td>Komputer dan Jaringan</td>
+        <td>Pendidikan Pancasila</td>
+        <td>Pelayanan Farmasi</td>
+        <td class = "bg-secondary"></td>
+    </tr>
+    <tr>
+        <td>14.30 - 15.15</td>
+        <td class="bg-secondary"></td>
+        <td class="bg-secondary"></td>
+        <td>Dasar Design Grafis</td>
+        <td>Pendidikan Pancasila</td>
         <td>Praktikum Pelayanan Farmasi</td>
+        <td class = "bg-secondary"></td>
+    </tr>
+    <tr>
+        <td>15.15 - 15.45</td>
+        <td colspan="7" class="bg-success text-center text-light">SHOLAT ASHAR & ISTIRAHAT </td>
+    </tr>
+    <tr>
+        <td>15.45 - 16.30</td>
+        <td class="bg-secondary"></td>
+        <td class="bg-secondary"></td>
+        <td>Dasar Design Grafis</td>
+        <td class="bg-secondary"></td>
+        <td>Praktikum Pelayanan Farmasi</td>
+        <td class = "bg-secondary"></td>
+    </tr>
+    <tr>
+        <td>15.45 - 16.30</td>
+        <td class="bg-secondary"></td>
+        <td class="bg-secondary"></td>
+        <td class="bg-secondary"></td>
+        <td class="bg-secondary"></td>
+        <td>Praktikum Pelayanan Farmasi</td>
+        <td class = "bg-secondary"></td>
+    </tr> 
+    <tr>
+        <td rowspan="14" class="text-center align-middle">Selasa</td>
+        <td>07.10 - 07.30</td>
+        <td colspan="7" class="bg-success text-center text-light">SHOLAT DHUHA</td>
+    </tr> 
+    <tr>
+        <td>07.30 - 07.45</td>
+        <td colspan="7" class="bg-warning text-center">TIME FOR READING</td>
+    </tr>
+    <tr>
+        <td>07.45 - 08.30</td>
+        <td>Pendidikan Pancasila</td>
+        <td>Praktikum DTF</td>
+        <td>Sistem Komputer</td>
+        <td>PenjasOrkes</td>
+        <td>PenjasOrkes</td>
+        <td>PenjasOrkes</td>
+    </tr>
+    <tr>
+        <td>08.30 - 09.15</td>
+        <td>Pendidikan Pancasila</td>
+        <td>Praktikum DTF</td>
+        <td>Sistem Komputer</td>
+        <td>PenjasOrkes</td>
+        <td>PenjasOrkes</td>
+        <td>PenjasOrkes</td>
+    </tr>
+    <tr>
+        <td>09.15 - 10.00</td>
+        <td>Pendidikan Antikorupsi</td>
+        <td>Praktikum DTF</td>
+        <td>Praktik Mandiri Komjar</td>
+        <td>Matematika</td>
+        <td>Administrasi Farmasi</td>
+        <td>Pemodelan Perangkat Lunak</td>
+    </tr>
+    <tr>
+        <td>10.00 - 10.15</td>
+        <td colspan="7" class="bg-success text-center text-light">ISTIRAHAT 1</td>
+    </tr>  
+    <tr>
+        <td>10.15 - 11.00</td>
+        <td>Praktikum DTF</td>
         <td>Pendidikan Pancasila</td>
         <td>Pendidikan Pancasila</td>
+        <td>Matematika</td>
+        <td>Bahasa Indonesia</td>
+        <td>Bahasa Indonesia</td>
+    </tr>
+    <tr>
+        <td>11.00 - 11.45</td>
+        <td>Praktikum DTF</td>
+        <td>Pendidikan Pancasila</td>
+        <td>Pendidikan Pancasila</td>
+        <td>Administrasi Farmasi</td>
+        <td>Bahasa Indonesia</td>
+        <td>Bahasa Indonesia</td>
+    </tr>
+    <tr>
+        <td>11.45 - 12.30</td>
+        <td>Praktikum DTF</td>
+        <td>Pendidikan Antikorupsi</td>
+        <td>Pendidikan Antikorupsi</td>
+        <td>Bahasa Inggris</td>
+        <td>Matematika</td>
+        <td>Matematika</td>
+    </tr>
+    <tr>
+        <td>12.30 - 13.00</td>
+        <td colspan="7" class="bg-success text-center text-light">SHOLAT DZUHUR & ISTIRAHAT 2</td>
+    </tr>
+    <tr>
+        <td>13.00 - 13.45</td>
+        <td>Farmakognosi Dasar</td>
+        <td>Pengantar Farmasi</td>
+        <td>Pemrograman Dasar</td>
+        <td>Bahasa Inggris</td>
+        <td>Matematika</td>
+        <td>Matematika</td>
+    </tr>
+    <tr>
+        <td>13.45 - 14.30</td>
+        <td>Pengantar Farmasi</td>
+        <td>Farmakognosi Dasar</td>
+        <td>Pemrograman Dasar</td>
+        <td class="bg-secondary"></td>
+        <td class="bg-secondary"></td>
+        <td class="bg-secondary"></td>   
     </tr>
   </tbody>
 </table>
-    </div>
-    
+    </div> 
     
     <script src="assets/js/jquery-3.5.1.slim.min.js"></script>
     <script src="assets/js/bootstrap.bundle.min.js"></script>
