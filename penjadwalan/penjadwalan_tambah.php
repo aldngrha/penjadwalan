@@ -67,17 +67,18 @@ if (!isset($_SESSION["role_id"])) {
                                         </div>
                                     </div>
                                     
-                                    <div class="form-group row" id="upacara-section">
+                                    <div class="form-group row" id="schedule-section">
                                         <div class="col-sm-4">
-                                            <label>Apakah jadwal upacara?</label>
-                                            <div>
-                                                <input type="radio" name="upacara" value="1" id="ya" onclick="toggleSectionRadio('istirahat-section', true)" />
-                                                <label for="ya">Ya</label>
-                                            </div>
-                                            <div>
-                                                <input type="radio" name="upacara" value="0" id="tidak" onclick="toggleSectionRadio('istirahat-section', false)" />
-                                                <label for="tidak">Tidak</label>
-                                            </div>
+                                        <label>Pilih Jadwal untuk?</label>
+                                            <select class="custom-select" name="schedule">
+                                                <option value="pilih">Pilih Jadwal</option>
+                                                <?php 
+                                                $schedules = ["Upacara", "Sholat Dhuha", "Time For Reading", "Senam", "Ekstrakurikuler", "Gotong Royong"];
+                                                foreach ($schedules as $schedule) {
+                                                    echo "<option value='" . strtolower($schedule) . "'>$schedule</option>";
+                                                }
+                                                ?>
+                                            </select>
                                         </div>
                                     </div>
 
@@ -85,11 +86,11 @@ if (!isset($_SESSION["role_id"])) {
                                         <div class="col-sm-4">
                                             <label>Apakah jadwal istirahat?</label>
                                             <div>
-                                                <input type="radio" name="istirahat" value="1" id="istirahat-ya" onclick="toggleSectionRadio('upacara-section', true)" />
+                                                <input type="radio" name="istirahat" value="1" id="istirahat-ya" onclick="toggleSectionRadio('schedule-section', true)" />
                                                 <label for="istirahat-ya">Ya</label>
                                             </div>
                                             <div>
-                                                <input type="radio" name="istirahat" value="0" id="istirahat-tidak" onclick="toggleSectionRadio('upacara-section', false)" />
+                                                <input type="radio" name="istirahat" value="0" id="istirahat-tidak" onclick="toggleSectionRadio('schedule-section', false)" />
                                                 <label for="istirahat-tidak">Tidak</label>
                                             </div>
                                         </div>
@@ -186,9 +187,9 @@ if (!isset($_SESSION["role_id"])) {
 
                                         echo "<script>alert('Data Tersimpan!');</script>";
                                         echo "<script>location='penjadwalan.php'</script>";
-                                    } else if($_POST['upacara'] == "1") {
+                                    } else if($_POST['schedule'] !== "pilih") {
                                         $koneksi->query("INSERT INTO schedules (hari, ceremony, start_time, end_time, created_at) 
-                                        VALUES ('$_POST[day]', '$_POST[upacara]', '$_POST[start_time]', '$_POST[end_time]', NOW() )");
+                                        VALUES ('$_POST[day]', '$_POST[schedule]', '$_POST[start_time]', '$_POST[end_time]', NOW() )");
 
                                         echo "<script>alert('Data Tersimpan!');</script>";
                                         echo "<script>location='penjadwalan.php'</script>";
@@ -241,7 +242,22 @@ if (!isset($_SESSION["role_id"])) {
                 mainForm.style.display = 'block'; // Tampilkan kembali form
             }
     }
-    
+
+    document.addEventListener("DOMContentLoaded", function(){
+        const scheduleSelect = document.querySelector("select[name='schedule']");
+        const mainForm = document.getElementById("main-form");
+        const restSection = document.getElementById("istirahat-section"); 
+
+        scheduleSelect.addEventListener("change", function(){
+            if(scheduleSelect.value !== "pilih"){
+                mainForm.style.display = "none";
+                restSection.style.display = "none";
+            } else {
+                restSection.style.display = "block";
+                mainForm.style.display = "block";
+            }
+        });
+    });
     </script>
 </body>
 
