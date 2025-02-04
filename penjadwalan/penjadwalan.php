@@ -49,8 +49,10 @@ if (!isset($_SESSION["role_id"])) {
                                         <tr>
                                             <th>No</th>
                                             <th>ID Penjadwalan</th>
+                                            <th>Hari</th>
                                             <th>Jam Mulai</th>
                                             <th>Jam Selesai</th>
+                                            <th>Jadwal</th>
                                             <th>Kategori</th>
                                             <th>Mata Pelajaran</th>
                                             <th>Kelas</th>
@@ -62,7 +64,7 @@ if (!isset($_SESSION["role_id"])) {
                                     </thead>
                                     <tbody>
                                         <?php $nomor = 1; ?>
-                                        <?php $schedules = $koneksi->query("SELECT schedules.schedule_id, schedules.start_time, schedules.end_time, categories.name AS category_name, subjects.name AS subject_name, 
+                                        <?php $schedules = $koneksi->query("SELECT schedules.schedule_id, schedules.hari, schedules.start_time, schedules.end_time, schedules.ceremony, categories.name AS category_name, subjects.name AS subject_name, 
                                                                         classes.name AS class_name, majors.name AS major_name, schedules.created_at, schedules.updated_at FROM schedules
                                                                         LEFT JOIN categories ON schedules.category_id = categories.category_id
                                                                         LEFT JOIN subjects ON schedules.subject_id = subjects.subject_id
@@ -72,8 +74,10 @@ if (!isset($_SESSION["role_id"])) {
                                             <tr>
                                                 <td><?php echo $nomor; ?></td>
                                                 <td><?php echo $schedule['schedule_id']; ?></td>
-                                                <td><?php echo date('H:i', strtotime($schedule['start_time'])); ?></td>
-                                                <td><?php echo date('H:i', strtotime($schedule['end_time'])); ?></td>
+                                                <td><?php echo $schedule['hari']; ?></td>
+                                                <td><?php echo date('H:i', strtotime($schedule['start_time'])); ?> </td>
+                                                <td><?php echo date('H:i', strtotime($schedule['end_time'])); ?> </td>
+                                                <td><?php echo $schedule['ceremony']; ?></td>
                                                 <td><?php echo $schedule['category_name']; ?></td>
                                                 <td><?php echo $schedule['subject_name']; ?></td>
                                                 <td><?php echo $schedule['class_name']; ?></td>
