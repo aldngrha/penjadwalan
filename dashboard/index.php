@@ -56,7 +56,7 @@ if (!isset($_SESSION["role_id"])) {
                                             </div>
                                         </div>
                                         <div class="col-auto">
-                                            <i class="fas fa-calendar fa-2x text-gray"></i>
+                                            <i class="fas fa-graduation-cap fa-2x text-gray"></i>
                                         </div>
                                     </div>
                                 </div>
@@ -78,7 +78,7 @@ if (!isset($_SESSION["role_id"])) {
                                             </div>
                                         </div>
                                         <div class="col-auto">
-                                            <i class="fas fa-building fa-2x text-gray"></i>
+                                            <i class="fas fa-tags fa-2x text-gray"></i>
                                         </div>
                                     </div>
                                 </div>
@@ -100,7 +100,7 @@ if (!isset($_SESSION["role_id"])) {
                                             </div>
                                         </div>
                                         <div class="col-auto">
-                                            <i class="fas fa-clipboard-list fa-2x text-gray"></i>
+                                            <i class="fas fa-book-open fa-2x text-gray"></i>
                                         </div>
                                     </div>
                                 </div>
@@ -122,7 +122,7 @@ if (!isset($_SESSION["role_id"])) {
                                             </div>
                                         </div>
                                         <div class="col-auto">
-                                            <i class="fas fa-list fa-2x gray"></i>
+                                            <i class="fas fa-school fa-2x gray"></i>
                                         </div>
                                     </div>
                                 </div>
