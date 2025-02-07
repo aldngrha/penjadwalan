@@ -6,7 +6,32 @@ if (!isset($_SESSION["role_id"])) {
     echo "<script>location='../login/index.php'</script>";
     exit();
 }
+$categories = $koneksi->query("SELECT * FROM categories");
+$subjects = $koneksi->query("SELECT * FROM subjects");
+$majors = $koneksi->query("SELECT * FROM majors");
+$classes = $koneksi->query("SELECT * FROM classes");
+$categoryFilter = isset($_GET['category_id']) ? $_GET['category_id'] : '';
+$subjectFilter = isset($_GET['subject_id']) ? $_GET['subject_id'] : '';
+$majorFilter = isset($_GET['major_id']) ? $_GET['major_id'] : '';
+$classFilter = isset($_GET['class_id']) ? $_GET['class_id'] : '';
 
+$query = "SELECT schedules.schedule_id, schedules.priority, schedules.hari, schedules.start_time, schedules.end_time, schedules.ceremony, categories.name AS category_name, subjects.name AS subject_name, 
+            classes.name AS class_name, majors.name AS major_name, schedules.created_at, schedules.updated_at FROM schedules
+            LEFT JOIN categories ON schedules.category_id = categories.category_id
+            LEFT JOIN subjects ON schedules.subject_id = subjects.subject_id
+            LEFT JOIN classes ON schedules.class_id = classes.class_id
+            LEFT JOIN majors ON schedules.major_id = majors.major_id"; 
+
+if ($categoryFilter) {
+    $query .= " WHERE schedules.category_id = '$categoryFilter'";
+} elseif ($subjectFilter) {
+    $query .= " WHERE schedules.subject_id = '$subjectFilter'";
+} elseif ($majorFilter) {
+    $query .= " WHERE schedules.major_id = '$majorFilter'";
+} elseif ($classFilter) {
+    $query .= " WHERE schedules.class_id = '$classFilter'";
+}
+$schedules = $koneksi->query($query);
 ?>
 
 <!DOCTYPE html>
@@ -25,10 +50,10 @@ if (!isset($_SESSION["role_id"])) {
 </head>
 
 <body class="sb-nav-fixed">
-<?php include '../includes/navbar.php'?> 
+    <?php include '../includes/navbar.php' ?>
 
     <div id="layoutSidenav">
-    <?php include '../includes/sidebar.php'?> 
+        <?php include '../includes/sidebar.php' ?>
         <div id="layoutSidenav_content" class="bg-white text-dark">
             <main>
                 <div class="container-fluid">
@@ -43,6 +68,50 @@ if (!isset($_SESSION["role_id"])) {
                             Tabel Penjadwalan
                         </div>
                         <div class="card-body">
+                            <form method="GET" class="mb-3">
+                                <label for="category">Filter Kategori</label>
+                                <select name="category_id" id="category" class="form-control" onchange="this.form.submit()">
+                                    <option value="">Semua Kategori </option>
+                                    <?php while ($category = $categories->fetch_assoc()) { ?>
+                                        <option value="<?php echo $category['category_id']; ?>" <?php echo $categoryFilter == $category['category_id'] ? 'selected' : "" ?>>
+                                            <?php echo $category['name']; ?>
+                                        </option>
+                                  <?php  } ?>
+                                </select>
+                            </form>
+                            <form method="GET" class="mb-3">
+                                <label for="subject">Filter Mata Pelajaran</label>
+                                <select name="subject_id" id="subject" class="form-control" onchange="this.form.submit()">
+                                    <option value="">Semua Mata Pelajaran</option>
+                                    <?php while ($subject = $subjects->fetch_assoc()) { ?>
+                                        <option value="<?php echo $subject['subject_id']; ?>" <?php echo $subjectFilter == $subject['subject_id'] ? 'selected' : "" ?>>
+                                            <?php echo $subject['name']; ?>
+                                        </option>
+                                  <?php  } ?>
+                                </select>
+                            </form>
+                            <form method="GET" class="mb-3">
+                                <label for="major">Filter Jurusan</label>
+                                <select name="major_id" id="major" class="form-control" onchange="this.form.submit()">
+                                    <option value="">Semua Jurusan </option>
+                                    <?php while ($major = $majors->fetch_assoc()) { ?>
+                                        <option value="<?php echo $major['major_id']; ?>" <?php echo $majorFilter == $major['major_id'] ? 'selected' : "" ?>>
+                                            <?php echo $major['name']; ?>
+                                        </option>
+                                  <?php  } ?>
+                                </select>
+                            </form>
+                            <form method="GET" class="mb-3">
+                                <label for="class">Filter Kelas</label>
+                                <select name="class_id" id="class" class="form-control" onchange="this.form.submit()">
+                                    <option value="">Semua Kelas </option>
+                                    <?php while ($class = $classes->fetch_assoc()) { ?>
+                                        <option value="<?php echo $class['class_id']; ?>" <?php echo $classFilter == $class['class_id'] ? 'selected' : "" ?>>
+                                            <?php echo $class['name']; ?>
+                                        </option>
+                                  <?php  } ?>
+                                </select>
+                            </form>
                             <div class="table-responsive">
                                 <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
                                     <thead>
@@ -57,6 +126,7 @@ if (!isset($_SESSION["role_id"])) {
                                             <th>Mata Pelajaran</th>
                                             <th>Kelas</th>
                                             <th>Jurusan</th>
+                                            <th>Prioritas</th>
                                             <th>created_at</th>
                                             <th>updated_at</th>
                                             <th>Aksi</th>
@@ -64,13 +134,9 @@ if (!isset($_SESSION["role_id"])) {
                                     </thead>
                                     <tbody>
                                         <?php $nomor = 1; ?>
-                                        <?php $schedules = $koneksi->query("SELECT schedules.schedule_id, schedules.hari, schedules.start_time, schedules.end_time, schedules.ceremony, categories.name AS category_name, subjects.name AS subject_name, 
-                                                                        classes.name AS class_name, majors.name AS major_name, schedules.created_at, schedules.updated_at FROM schedules
-                                                                        LEFT JOIN categories ON schedules.category_id = categories.category_id
-                                                                        LEFT JOIN subjects ON schedules.subject_id = subjects.subject_id
-                                                                        LEFT JOIN classes ON schedules.class_id = classes.class_id
-                                                                        LEFT JOIN majors ON schedules.major_id = majors.major_id"); ?>
+
                                         <?php while ($schedule = $schedules->fetch_assoc()) { ?>
+
                                             <tr>
                                                 <td><?php echo $nomor; ?></td>
                                                 <td><?php echo $schedule['schedule_id']; ?></td>
@@ -82,18 +148,27 @@ if (!isset($_SESSION["role_id"])) {
                                                 <td><?php echo $schedule['subject_name']; ?></td>
                                                 <td><?php echo $schedule['class_name']; ?></td>
                                                 <td><?php echo $schedule['major_name']; ?></td>
+                                                <td><?php if ($schedule['priority'] == 1) { ?>
+                                                        <span class="badge badge-primary">Ya</span>
+                                                    <?php } elseif ($schedule['priority'] == 0) { ?>
+                                                        <span class="badge badge-secondary">Tidak</span>
+                                                    <?php } else { ?>
+                                                        <span class="badge badge-warning">Tidak di setting</span>
+
+                                                    <?php } ?>
+                                                </td>
                                                 <td><?php echo $schedule['created_at']; ?></td>
                                                 <td><?php echo $schedule['updated_at']; ?></td>
                                                 <td>
-                                                <a href="penjadwlan_view.php?&schedule_id=<?php echo $schedule['schedule_id']; ?>" class="btn-primary btn-sm btn">
-                                                            <i class="fas fa-eye"></i></i>
-                                                        </a>
-                                                        <a href="penjadwalan_ubah.php?&schedule_id=<?php echo $schedule['schedule_id']; ?>" class="btn-warning btn-sm btn">
-                                                            <i class="fas fa-edit"></i>
-                                                        </a>
-                                                        <a href="penjadwlan_hapus.php?&schedule_id=<?php echo $schedule['schedule_id']; ?>" class="btn-danger btn-sm btn">
-                                                            <i class="fas fa-trash"></i>
-                                                        </a>
+                                                    <a href="penjadwlan_view.php?&schedule_id=<?php echo $schedule['schedule_id']; ?>" class="btn-primary btn-sm btn">
+                                                        <i class="fas fa-eye"></i></i>
+                                                    </a>
+                                                    <a href="penjadwalan_ubah.php?&schedule_id=<?php echo $schedule['schedule_id']; ?>" class="btn-warning btn-sm btn">
+                                                        <i class="fas fa-edit"></i>
+                                                    </a>
+                                                    <a href="penjadwlan_hapus.php?&schedule_id=<?php echo $schedule['schedule_id']; ?>" class="btn-danger btn-sm btn">
+                                                        <i class="fas fa-trash"></i>
+                                                    </a>
                                                 </td>
                                             </tr>
                                             <?php $nomor++; ?>
@@ -108,7 +183,7 @@ if (!isset($_SESSION["role_id"])) {
                     </div>
                 </div>
             </main>
-            <?php include '../includes/footer.php'?> 
+            <?php include '../includes/footer.php' ?>
         </div>
     </div>
     <script src="../assets/js/jquery-3.5.1.slim.min.js"></script>

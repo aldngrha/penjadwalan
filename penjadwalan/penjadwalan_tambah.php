@@ -82,15 +82,15 @@ if (!isset($_SESSION["role_id"])) {
                                         </div>
                                     </div>
 
-                                    <div class="form-group row" id="istirahat-section">
+                                    <div class="form-group row" id="prioritas-section">
                                         <div class="col-sm-4">
                                             <label>Apakah jadwal istirahat?</label>
                                             <div>
-                                                <input type="radio" name="istirahat" value="1" id="istirahat-ya" onclick="toggleSectionRadio('schedule-section', true)" />
+                                                <input type="radio" name="istirahat" value="1" id="istirahat-ya" />
                                                 <label for="istirahat-ya">Ya</label>
                                             </div>
                                             <div>
-                                                <input type="radio" name="istirahat" value="0" id="istirahat-tidak" onclick="toggleSectionRadio('schedule-section', false)" />
+                                                <input type="radio" name="istirahat" value="0" id="istirahat-tidak" />
                                                 <label for="istirahat-tidak">Tidak</label>
                                             </div>
                                         </div>
@@ -150,6 +150,19 @@ if (!isset($_SESSION["role_id"])) {
                                             </div>
                                         </div>
                                     </div>
+                                    <div class="form-group row" id="prioritas-section">
+                                        <div class="col-sm-4">
+                                            <label>Apakah prioritas?</label>
+                                            <div>
+                                                <input type="radio" name="prioritas" value="1" id="prioritas-ya"  />
+                                                <label for="prioritas-ya">Ya</label>
+                                            </div>
+                                            <div>
+                                                <input type="radio" name="prioritas" value="0" id="prioritas-tidak"  />
+                                                <label for="prioritas-tidak">Tidak</label>
+                                            </div>
+                                        </div>
+                                    </div>
 
                                     <div class="form-group row">
                                         <div class="col-sm-4">
@@ -195,8 +208,8 @@ if (!isset($_SESSION["role_id"])) {
                                         echo "<script>location='penjadwalan.php'</script>";
                                     }
                                     else {
-                                        $koneksi->query("INSERT INTO schedules (category_id, hari, rest, ceremony, class_id, major_id, subject_id, start_time, end_time, created_at) 
-                                        VALUES ('$_POST[category_id]', '$_POST[day]', '$_POST[istirahat]', '$_POST[upacara]', '$_POST[class_id]','$_POST[major_id]','$_POST[subject_id]', '$_POST[start_time]', '$_POST[end_time]', NOW() )");
+                                        $koneksi->query("INSERT INTO schedules (category_id, hari, rest, priority, class_id, major_id, subject_id, start_time, end_time, created_at) 
+                                        VALUES ('$_POST[category_id]', '$_POST[day]', '$_POST[istirahat]','$_POST[prioritas]', '$_POST[class_id]','$_POST[major_id]','$_POST[subject_id]', '$_POST[start_time]', '$_POST[end_time]', NOW() )");
 
                                         echo "<script>alert('Data Tersimpan!');</script>";
                                         echo "<script>location='penjadwalan.php'</script>";
