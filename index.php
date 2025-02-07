@@ -36,7 +36,7 @@ if (!isset($_SESSION["role_id"])) {
                 <tr class="bg-primary">
                     <th scope="col" class="text-center">Hari</th>
                     <th scope="col" class="text-center">Pukul</th>
-                    <?php $classes = $koneksi->query("SELECT * FROM classes") ?>
+                    <?php $classes = $koneksi->query ("SELECT * FROM classes") ?>
                     <?php while ($class = $classes->fetch_assoc()) { ?>
                         <th scope="col" class="text-center"><?php echo $class["name"]; ?></th>
                         <?php } ?>
