@@ -179,6 +179,7 @@ $schedules = $koneksi->query($query);
                         </div>
                         <div class="card-footer">
                             <a href="penjadwalan_tambah.php" class="btn-success btn px-3 font-weight-bold"><i class="fas fa-plus"></i> Tambah Data Penjadwalan</a>
+                            <a href="cetak_penjadwalan.php" target="_blank" class="btn-success btn px-3 font-weight-bold"><i class="fas fa-print"></i> Cetak Data Penjadwalan</a>
                         </div>
                     </div>
                 </div>
